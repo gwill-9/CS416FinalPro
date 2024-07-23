@@ -2,7 +2,7 @@
 
 var Scope = 0
 
-console.log('version 1.04');
+console.log('version 1.05');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -148,7 +148,7 @@ function renderChart(countryArray, scatterData) {
             .attr("x", width / 2)
             .attr("y", margin.bottom - 10)
             .attr("text-anchor", "middle")
-            .text("Electric power consumption (kWh per capita)");
+            .text("GDP per capita (current US$)");
 
         scatterSvg.append("g")
             .call(d3.axisLeft(yScatter))
@@ -158,7 +158,7 @@ function renderChart(countryArray, scatterData) {
             .attr("y", scatterHeight / 2)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
-            .text("Calculated Value");
+            .text("C02 From Electric Power Generation And Heating Per Capita (kt)");
 
         scatterSvg.selectAll("circle")
             .data(scatterData)
@@ -180,7 +180,7 @@ function renderChart(countryArray, scatterData) {
 // Function to make the Scatter Plot data
 function generateScatterData(filteredScopeData) {
     return filteredScopeData.map(d => ({
-        x: d["Electric power consumption (kWh per capita)"], // X-axis
+        x: d["GDP per capita (current US$)"], // X-axis
         y: (d["CO2 emissions from electricity and heat production, total (% of total fuel combustion)"] * d["CO2 emissions (kt)"]) / d["Population, total"] // Y-axis calculation
     }));
 }
