@@ -135,34 +135,34 @@ function renderChart(countryArray) {
 d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
 
     // Parse data
-    Data.forEach(d => {
+    data.forEach(d => {
         d.Year = +d.Year;
         d.Value = +d.Value;
     });
 
     // Initial year range
     let minYear = 2010;
-    let maxYear = 2023;
+    let maxYear = 2022;
 
     // Update year range display
     d3.select("#year-range").text(`${minYear} - ${maxYear}`);
 
     // Create initial chart
-    updateChart(Data, minYear, maxYear);
+    updateChart(data, minYear, maxYear);
 
     // Update chart when slider values change
     d3.select("#year-slider").on("input", function() {
         minYear = +this.value;
         maxYear = +d3.select("#year-slider-max").property("value");
         d3.select("#year-range").text(`${minYear} - ${maxYear}`);
-        updateChart(Data, minYear, maxYear);
+        updateChart(data, minYear, maxYear);
     });
 
     d3.select("#year-slider-max").on("input", function() {
         maxYear = +this.value;
         minYear = +d3.select("#year-slider").property("value");
         d3.select("#year-range").text(`${minYear} - ${maxYear}`);
-        updateChart(Data, minYear, maxYear);
+        updateChart(data, minYear, maxYear);
     });
 });
 
