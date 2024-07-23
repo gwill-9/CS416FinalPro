@@ -14,11 +14,11 @@ function updateChart(data, minYear, maxYear) {
     if (Scope === 0) {
         // Extract distinct regions
         const distinctRegions = Array.from(new Set(data.map(d => d.Region)));
-        console.log("Distinct Regions:", distinctRegions);
+        // console.log("Distinct Regions:", distinctRegions);
 
         // Filter out rows where Region column is not null (look at the regions only)
         filteredScopeData = filteredData.filter(d => !d.Region);
-        console.log("Filtered Data (Scope 0):", filteredScopeData);
+        // console.log("Filtered Data (Scope 0):", filteredScopeData);
 
         // Filter data based on the list of regions
         filteredScopeData = filteredScopeData.filter(d => distinctRegions.includes(d["Country Name"]));
@@ -137,7 +137,7 @@ d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
 
     // Initial year range
     let minYear = 2010;
-    let maxYear = 2022;
+    let maxYear = 2015;
 
     // Update year range display
     d3.select("#year-range").text(`${minYear} - ${maxYear}`);
@@ -148,7 +148,8 @@ d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
     // Update chart when slider values change
     d3.select("#year-slider").on("input", function() {
         minYear = +this.value;
-        maxYear = 2022;//+d3.select("#year-slider-max").property("value");
+        console.log(minYear);
+        maxYear = 2015;//+d3.select("#year-slider-max").property("value");
         d3.select("#year-range").text(`${minYear} - ${maxYear}`);
         updateChart(data, minYear, maxYear);
     });
