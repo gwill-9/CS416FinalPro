@@ -2,7 +2,7 @@
 
 var Scope = 0
 
-console.log('version 1.02');
+console.log('version 1.03');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -56,6 +56,9 @@ function updateChart(data, minYear, maxYear) {
 
 // Function to render the chart
 function renderChart(countryArray) {
+    // Sort the data in descending order based on value
+    countryArray.sort((a, b) => b.value - a.value);
+
     // Set margins for the chart
     const margin = { top: 20, right: 30, bottom: 80, left: 60 };
 
