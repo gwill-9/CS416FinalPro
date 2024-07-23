@@ -137,7 +137,7 @@ d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
 
     // Initial year range
     let minYear = 2010;
-    let maxYear = 2015;
+    let maxYear = 2014;
 
     // Update year range display
     d3.select("#year-range").text(`${minYear} - ${maxYear}`);
@@ -149,7 +149,7 @@ d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
     d3.select("#year-slider").on("input", function() {
         minYear = +this.value;
         console.log(minYear);
-        maxYear = 2015;//+d3.select("#year-slider-max").property("value");
+        maxYear = 2014;//+d3.select("#year-slider-max").property("value");
         d3.select("#year-range").text(`${minYear} - ${maxYear}`);
         updateChart(data, minYear, maxYear);
     });
