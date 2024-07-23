@@ -162,29 +162,29 @@ d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
 
 
 
-// Create Scatter Plot
-const scatterPlotSvg = d3.select("#scatter-plot-container")
-    .append("svg")
-    .attr("width", "100%")
-    .attr("height", "100%")
-    .attr("viewBox", "0 0 600 400");
+// // Create Scatter Plot
+// const scatterPlotSvg = d3.select("#scatter-plot-container")
+//     .append("svg")
+//     .attr("width", "100%")
+//     .attr("height", "100%")
+//     .attr("viewBox", "0 0 600 400");
 
-scatterPlotSvg.selectAll("circle")
-    .data(scatterPlotData)
-    .enter()
-    .append("circle")
-    .attr("cx", d => d.x * 3)
-    .attr("cy", d => 400 - d.y * 3)
-    .attr("r", 5)
-    .attr("fill", "red");
+// scatterPlotSvg.selectAll("circle")
+//     .data(scatterPlotData)
+//     .enter()
+//     .append("circle")
+//     .attr("cx", d => d.x * 3)
+//     .attr("cy", d => 400 - d.y * 3)
+//     .attr("r", 5)
+//     .attr("fill", "red");
 
-// Create Color Bar Chart
-const colorBarContainer = d3.select("#color-bar-chart-container");
+// // Create Color Bar Chart
+// const colorBarContainer = d3.select("#color-bar-chart-container");
 
-colorBarContainer.selectAll(".color-bar")
-    .data(colorBarData)
-    .enter()
-    .append("div")
-    .attr("class", "color-bar")
-    .style("background-color", d => d.color)
-    .text(d => d.label);
+// colorBarContainer.selectAll(".color-bar")
+//     .data(colorBarData)
+//     .enter()
+//     .append("div")
+//     .attr("class", "color-bar")
+//     .style("background-color", d => d.color)
+//     .text(d => d.label);
