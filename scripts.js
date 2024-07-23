@@ -25,7 +25,7 @@ function updateChart(data, minYear, maxYear) {
             const co2Electricity = d3.mean(v.filter(d => d["Indicator Name"] === 'CO2 emissions from electricity and heat production, total (% of total fuel combustion)'), d => +d.Value);
             const co2Total = d3.mean(v.filter(d => d["Indicator Name"] === 'CO2 emissions (kt)'), d => +d.Value);
             const totalPop = d3.mean(v.filter(d => d["Indicator Name"] === 'Population, total'), d => +d.Value);
-            if ((co2Electricity * co2Total)==NaN){
+            if ((co2Electricity * co2Total)/ totalPop==NaN){
                 return 0;
             }else{
                 return (co2Electricity * co2Total) / totalPop;
