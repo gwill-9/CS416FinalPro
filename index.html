@@ -11,7 +11,7 @@ var pie = d3.pie();
 var arc = d3.arc().innerRadius(0).outerRadius(100);
 
 d3.select("svg").append("g")
-      .attr("transform","translate(150,150)") # the circle center
+      .attr("transform","translate(150,150)")  
       .selectAll('path')
       .data(pie(data))
       .enter()
