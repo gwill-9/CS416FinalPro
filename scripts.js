@@ -48,75 +48,176 @@ function updateChart(data, minYear, maxYear) {
     const countryArray = Array.from(countryData, ([countryName, calculatedValue]) => ({ country: countryName, value: calculatedValue }));
 
     // Print the array to the console to check the output
-    console.log(countryArray);
+    //console.log(countryArray);
+
+    // Prepare scatter plot data
+    const scatterData = generateScatterData(filteredScopeData);
 
     // Call the function to render the chart
-    renderChart(countryArray);
+    renderChart(countryArray,scatterData);
+
+
 }
 
-// Function to render the chart
-function renderChart(countryArray) {
-    // Sort the data in descending order based on value
+// Function to render the bar chart and scatter plot
+function renderChart(countryArray, scatterData) {
+    // Sort the bar chart data in descending order based on value
     countryArray.sort((a, b) => b.value - a.value);
 
-    // Set margins for the chart
+    // Set margins for the charts
     const margin = { top: 20, right: 30, bottom: 80, left: 60 };
+    const barHeight = 300;
+    const scatterHeight = 400;
 
     // Function to update chart dimensions
     function updateChartDimensions() {
         const containerWidth = document.getElementById('bar-chart-container').offsetWidth;
-        const width = containerWidth - margin.left - margin.right; // Dynamic width based on container
-        const height = 400 - margin.top - margin.bottom;
+        const width = containerWidth - margin.left - margin.right;
+        const barChartHeight = barHeight - margin.top - margin.bottom;
+        const scatterChartHeight = scatterHeight - margin.top - margin.bottom;
 
-        // Remove existing SVG if it exists
+        // Remove existing SVGs if they exist
         d3.select("#bar-chart-container svg").remove();
+        d3.select("#scatter-plot-container svg").remove();
 
-        // Append the SVG object to the div
-        const svg = d3.select("#bar-chart-container")
+        // Append SVG for bar chart
+        const barSvg = d3.select("#bar-chart-container")
             .append("svg")
             .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
+            .attr("height", barHeight + margin.top + margin.bottom)
             .append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        // X axis
-        const x = d3.scaleBand()
+        // Bar chart X axis
+        const xBar = d3.scaleBand()
             .domain(countryArray.map(d => d.country))
             .range([0, width])
             .padding(0.2);
-        svg.append("g")
-            .attr("transform", `translate(0,${height})`)
-            .call(d3.axisBottom(x))
+        barSvg.append("g")
+            .attr("transform", `translate(0,${barChartHeight})`)
+            .call(d3.axisBottom(xBar))
             .selectAll("text")
             .attr("transform", "translate(-10,0)rotate(-45)")
             .style("text-anchor", "end");
 
-        // Y axis
-        const y = d3.scaleLinear()
+        // Bar chart Y axis
+        const yBar = d3.scaleLinear()
             .domain([0, d3.max(countryArray, d => d.value)])
             .nice()
-            .range([height, 0]);
-        svg.append("g")
-            .call(d3.axisLeft(y));
+            .range([barChartHeight, 0]);
+        barSvg.append("g")
+            .call(d3.axisLeft(yBar));
 
-        // Bars
-        svg.selectAll("rect")
+        // Bar chart bars
+        barSvg.selectAll("rect")
             .data(countryArray)
             .enter()
             .append("rect")
-            .attr("x", d => x(d.country))
-            .attr("y", d => y(d.value))
-            .attr("width", x.bandwidth())
-            .attr("height", d => height - y(d.value))
+            .attr("x", d => xBar(d.country))
+            .attr("y", d => yBar(d.value))
+            .attr("width", xBar.bandwidth())
+            .attr("height", d => barChartHeight - yBar(d.value))
             .attr("fill", "steelblue");
+
+        // Append SVG for scatter plot
+        const scatterSvg = d3.select("#scatter-plot-container")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", scatterHeight + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // Scatter plot X axis
+        const xScatter = d3.scaleLinear()
+            .domain([0, d3.max(scatterData, d => d.x)])
+            .range([0, width]);
+        
+        // Scatter plot Y axis
+        const yScatter = d3.scaleLinear()
+            .domain([0, d3.max(scatterData, d => d.y)])
+            .range([scatterHeight, 0]);
+
+        scatterSvg.append("g")
+            .attr("transform", `translate(0,${scatterHeight})`)
+            .call(d3.axisBottom(xScatter))
+            .append("text")
+            .attr("fill", "#000")
+            .attr("x", width / 2)
+            .attr("y", margin.bottom - 10)
+            .attr("text-anchor", "middle")
+            .text("Electric power consumption (kWh per capita)");
+
+        scatterSvg.append("g")
+            .call(d3.axisLeft(yScatter))
+            .append("text")
+            .attr("fill", "#000")
+            .attr("x", -margin.left)
+            .attr("y", scatterHeight / 2)
+            .attr("text-anchor", "middle")
+            .attr("transform", "rotate(-90)")
+            .text("Calculated Value");
+
+        scatterSvg.selectAll("circle")
+            .data(scatterData)
+            .enter()
+            .append("circle")
+            .attr("cx", d => xScatter(d.x))
+            .attr("cy", d => yScatter(d.y))
+            .attr("r", 5)
+            .attr("fill", "red");
     }
 
     // Initial chart rendering
     updateChartDimensions();
 
-    // Add an event listener to resize the chart when the window is resized
+    // Add an event listener to resize the charts when the window is resized
     window.addEventListener('resize', updateChartDimensions);
 }
+
+// Function to make the Scatter Plot data
+function generateScatterData(filteredScopeData) {
+    return filteredScopeData.map(d => ({
+        x: d["Electric power consumption (kWh per capita)"], // X-axis
+        y: (d["CO2 emissions from electricity and heat production, total (% of total fuel combustion)"] * d["CO2 emissions (kt)"]) / d["Population, total"] // Y-axis calculation
+    }));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
