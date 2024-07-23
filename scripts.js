@@ -134,30 +134,11 @@ function renderChart(countryArray) {
 // Load CSV data
 d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
 
-    // Check the structure of the first few rows of data
-    console.log("First few rows of data:", data.slice(0, 5));
-
     // Parse data
-    data.forEach(d => {
-        // Convert 'Year' to a number if it's a valid number
-        if (!isNaN(d.Year) && d.Year) {
-            d.Year = +d.Year;
-        } else {
-            console.warn(`Invalid year value: ${d.Year}`);
-            return; // Skip rows with invalid 'Year'
-        }
-
-        // Convert 'Value' to a number if it's a valid number
-        if (!isNaN(d.Value) && d.Value) {
-            d.Value = +d.Value;
-        } else {
-            console.warn(`Invalid value: ${d.Value}`);
-            return; // Skip rows with invalid 'Value'
-        }
-
-        // Handle other fields if necessary (optional)
+    Data.forEach(d => {
+        d.Year = +d.Year;
+        d.Value = +d.Value;
     });
-
 
     // Initial year range
     let minYear = 2010;
@@ -167,21 +148,21 @@ d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
     d3.select("#year-range").text(`${minYear} - ${maxYear}`);
 
     // Create initial chart
-    updateChart(regionData, minYear, maxYear);
+    updateChart(Data, minYear, maxYear);
 
     // Update chart when slider values change
     d3.select("#year-slider").on("input", function() {
         minYear = +this.value;
         maxYear = +d3.select("#year-slider-max").property("value");
         d3.select("#year-range").text(`${minYear} - ${maxYear}`);
-        updateChart(regionData, minYear, maxYear);
+        updateChart(Data, minYear, maxYear);
     });
 
     d3.select("#year-slider-max").on("input", function() {
         maxYear = +this.value;
         minYear = +d3.select("#year-slider").property("value");
         d3.select("#year-range").text(`${minYear} - ${maxYear}`);
-        updateChart(regionData, minYear, maxYear);
+        updateChart(Data, minYear, maxYear);
     });
 });
 
