@@ -2,7 +2,7 @@
 
 var Scope = 0
 
-
+console.log('version 1.0');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
