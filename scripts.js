@@ -65,7 +65,7 @@ function updateChart(data, minYear, maxYear) {
 // Function to render the chart
 function renderChart(countryArray) {
     // Set margins for the chart
-    const margin = { top: 20, right: 30, bottom: 40, left: 60 };
+    const margin = { top: 20, right: 30, bottom: 80, left: 60 };
 
     // Function to update chart dimensions
     function updateChartDimensions() {
@@ -133,14 +133,31 @@ function renderChart(countryArray) {
 
 // Load CSV data
 d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
-    // Filter data to include only rows where the Region column is null
-    const regionData = data.filter(d => d.Region === "");
+
+    // Check the structure of the first few rows of data
+    console.log("First few rows of data:", data.slice(0, 5));
 
     // Parse data
-    regionData.forEach(d => {
-        d.Year = +d.Year;
-        d.Value = +d.Value;
+    data.forEach(d => {
+        // Convert 'Year' to a number if it's a valid number
+        if (!isNaN(d.Year) && d.Year) {
+            d.Year = +d.Year;
+        } else {
+            console.warn(`Invalid year value: ${d.Year}`);
+            return; // Skip rows with invalid 'Year'
+        }
+
+        // Convert 'Value' to a number if it's a valid number
+        if (!isNaN(d.Value) && d.Value) {
+            d.Value = +d.Value;
+        } else {
+            console.warn(`Invalid value: ${d.Value}`);
+            return; // Skip rows with invalid 'Value'
+        }
+
+        // Handle other fields if necessary (optional)
     });
+
 
     // Initial year range
     let minYear = 2010;
