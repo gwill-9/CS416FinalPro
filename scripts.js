@@ -3,28 +3,6 @@
 var Scope = 0
 
 
-
-// // Create Bar Chart
-// const barChartSvg = d3.select("#bar-chart-container")
-//     .append("svg")
-//     .attr("width", "100%")
-//     .attr("height", "100%")
-//     .attr("viewBox", "0 0 600 300");
-
-// const barWidth = 600 / barChartData.length;
-
-// barChartSvg.selectAll("rect")
-//     .data(barChartData)
-//     .enter()
-//     .append("rect")
-//     .attr("x", (d, i) => i * barWidth)
-//     .attr("y", d => 300 - d)
-//     .attr("width", barWidth - 1)
-//     .attr("height", d => d)
-//     .attr("fill", "steelblue");
-
-
-
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -47,7 +25,11 @@ function updateChart(data, minYear, maxYear) {
             const co2Electricity = d3.mean(v.filter(d => d["Indicator Name"] === 'CO2 emissions from electricity and heat production, total (% of total fuel combustion)'), d => +d.Value);
             const co2Total = d3.mean(v.filter(d => d["Indicator Name"] === 'CO2 emissions (kt)'), d => +d.Value);
             const totalPop = d3.mean(v.filter(d => d["Indicator Name"] === 'Population, total'), d => +d.Value);
-            return (co2Electricity * co2Total) / totalPop;
+            if ((co2Electricity * co2Total)==NaN){
+                return 0;
+            }else{
+                return (co2Electricity * co2Total) / totalPop;
+            }
         },
         d => d["Country Name"]
     );
@@ -158,12 +140,12 @@ d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
         updateChart(data, minYear, maxYear);
     });
 
-    d3.select("#year-slider-max").on("input", function() {
-        maxYear = +this.value;
-        minYear = +d3.select("#year-slider").property("value");
-        d3.select("#year-range").text(`${minYear} - ${maxYear}`);
-        updateChart(data, minYear, maxYear);
-    });
+    // d3.select("#year-slider-max").on("input", function() {
+    //     maxYear = +this.value;
+    //     minYear = +d3.select("#year-slider").property("value");
+    //     d3.select("#year-range").text(`${minYear} - ${maxYear}`);
+    //     updateChart(data, minYear, maxYear);
+    // });
 });
 
 
