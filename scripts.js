@@ -4,14 +4,14 @@ var Scope = 0
 
 
 
-// Create Bar Chart
-const barChartSvg = d3.select("#bar-chart-container")
-    .append("svg")
-    .attr("width", "100%")
-    .attr("height", "100%")
-    .attr("viewBox", "0 0 600 300");
+// // Create Bar Chart
+// const barChartSvg = d3.select("#bar-chart-container")
+//     .append("svg")
+//     .attr("width", "100%")
+//     .attr("height", "100%")
+//     .attr("viewBox", "0 0 600 300");
 
-const barWidth = 600 / barChartData.length;
+// const barWidth = 600 / barChartData.length;
 
 // barChartSvg.selectAll("rect")
 //     .data(barChartData)
