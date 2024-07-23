@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .content {
+            width: 100%;
+            height: auto;
+            background-color: lightblue;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1>Responsive Layout</h1>
+    <div class="content">
+        <p>This content adjusts based on screen width.</p>
+    </div>
+    <script>
+        function adjustLayout() {
+            const width = window.innerWidth;
+            const content = document.querySelector('.content');
+
+            if (width < 600) {
+                content.style.fontSize = '12px';
+                content.style.padding = '10px';
+            } else if (width < 900) {
+                content.style.fontSize = '16px';
+                content.style.padding = '20px';
+            } else {
+                content.style.fontSize = '20px';
+                content.style.padding = '30px';
+            }
+        }
+
+        window.addEventListener('resize', adjustLayout);
+        window.addEventListener('load', adjustLayout);
+    </script>
+    <a href="index.html">Go to index Page</a>
+</body>
+</html>
