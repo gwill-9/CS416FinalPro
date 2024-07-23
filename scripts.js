@@ -2,7 +2,7 @@
 
 var Scope = 0
 
-console.log('version 1.01');
+console.log('version 1.02');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -14,10 +14,16 @@ function updateChart(data, minYear, maxYear) {
     if (Scope === 0) {
         // Extract distinct regions
         const distinctRegions = Array.from(new Set(data.map(d => d.Region)));
+        console.log("Distinct Regions:", distinctRegions);
+
         // Filter out rows where Region column is not null (look at the regions only)
         filteredScopeData = filteredData.filter(d => !d.Region);
+        console.log("Filtered Data (Scope 0):", filteredScopeData);
+
         // Filter data based on the list of regions
-        const filteredData = data.filter(d => distinctRegions.includes(d["Country Name"]));
+        filteredScopeData = filteredScopeData.filter(d => distinctRegions.includes(d["Country Name"]));
+        console.log("Filtered Data (Scope 0) after compare:", filteredScopeData);
+
     } else {
         // If Scope is not 0, handle the case where Region is defined
         filteredScopeData = filteredData.filter(d => d.Region);
