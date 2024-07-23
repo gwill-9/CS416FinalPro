@@ -1,24 +1,12 @@
-<html>
-<script src='https://d3js.org/d3.v5.min.js'></script>
-<style> path {stroke: black;}</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+</head>
 <body>
-<svg width=300 height=300>
-</svg>
-<script>
-var data = [4,8,15,16,23,42];
-var color = ['pink','lightyellow','lightgreen','lightcyan','lightblue','violet'];
-var pie = d3.pie();
-var arc = d3.arc().innerRadius(0).outerRadius(100);
-
-d3.select("svg").append("g")
-      .attr("transform","translate(150,150)")  
-      .selectAll('path')
-      .data(pie(data))
-      .enter()
-      .append('path')
-      .attr('d',arc)
-      .attr('fill',function(d,i) {return color[i];} );
-
-</script>
+    <h1>Welcome to My Website</h1>
+    <p>This is a paragraph of text on my website.</p>
 </body>
 </html>
