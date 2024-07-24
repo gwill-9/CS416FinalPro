@@ -255,7 +255,7 @@ function renderChart(countryArray, scatterData) {
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
         // Check if country is selected
-        if (selectedCountry1!=Nan || selectedCountry2!=Nan) {
+        if (selectedCountry1!=null || selectedCountry2!=null) {
             selectedCountries = [selectedCountry1, selectedCountry2];
 
             // Filter breakdown data for the selected countries
