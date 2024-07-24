@@ -9,7 +9,7 @@ let countryArrayGlobal= [];
 let scatterDataGlobal = [];
 let filteredDataGlobal;
 
-console.log('version 1.24');
+console.log('version 1.25');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -271,17 +271,23 @@ function renderChart(countryArray, scatterData, filteredData) {
             const breakdownProcessed = d3.rollups(
                 breakdownData,
                 v => {
+                    // Calculate averages for each energy source
+                    const coalAvg = d3.mean(v.filter(d => d["Indicator Name"] === 'Electricity production from coal sources (% of total)'), d => +d.Value);
+                    const hydroAvg = d3.mean(v.filter(d => d["Indicator Name"] === 'Electricity production from hydroelectric sources (% of total)'), d => +d.Value);
+                    const gasAvg = d3.mean(v.filter(d => d["Indicator Name"] === 'Electricity production from natural gas sources (% of total)'), d => +d.Value);
+                    const nuclearAvg = d3.mean(v.filter(d => d["Indicator Name"] === 'Electricity production from nuclear sources (% of total)'), d => +d.Value);
+                    const oilAvg = d3.mean(v.filter(d => d["Indicator Name"] === 'Electricity production from oil sources (% of total)'), d => +d.Value);
+
+                    // Calculate 'other' category as the remaining percentage
+                    const otherAvg = 100 - (coalAvg + hydroAvg + gasAvg + nuclearAvg + oilAvg);
+
                     return {
-                        coal: d3.mean(v, d => +d['Electricity production from coal sources (% of total)']),
-                        hydro: d3.mean(v, d => +d['Electricity production from hydroelectric sources (% of total)']),
-                        gas: d3.mean(v, d => +d['Electricity production from natural gas sources (% of total)']),
-                        nuclear: d3.mean(v, d => +d['Electricity production from nuclear sources (% of total)']),
-                        oil: d3.mean(v, d => +d['Electricity production from oil sources (% of total)']),
-                        other: 100 - (d3.mean(v, d => +d['Electricity production from coal sources (% of total)'])
-                            + d3.mean(v, d => +d['Electricity production from hydroelectric sources (% of total)'])
-                            + d3.mean(v, d => +d['Electricity production from natural gas sources (% of total)'])
-                            + d3.mean(v, d => +d['Electricity production from nuclear sources (% of total)'])
-                            + d3.mean(v, d => +d['Electricity production from oil sources (% of total)']))
+                        coal: coalAvg || 0,
+                        hydro: hydroAvg || 0,
+                        gas: gasAvg || 0,
+                        nuclear: nuclearAvg || 0,
+                        oil: oilAvg || 0,
+                        other: otherAvg || 0
                     };
                 },
                 d => d["Country Name"]
