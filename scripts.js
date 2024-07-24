@@ -9,7 +9,7 @@ let countryArrayGlobal= [];
 let scatterDataGlobal = [];
 let filteredDataGlobal;
 
-console.log('version 1.23');
+console.log('version 1.24');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -265,9 +265,7 @@ function renderChart(countryArray, scatterData, filteredData) {
             selectedCountries = [selectedCountry1, selectedCountry2];
             console.log("selectedCountries data:", selectedCountries);
             // Filter breakdown data for the selected countries
-            console.log("filteredData data:", filteredData);
             const breakdownData = filteredData.filter(d => selectedCountries.includes(d["Country Name"]));
-            console.log("breakdownData data:", breakdownData);
 
             // Process breakdown data to average over years and split by energy type
             const breakdownProcessed = d3.rollups(
@@ -286,7 +284,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                             + d3.mean(v, d => +d['Electricity production from oil sources (% of total)']))
                     };
                 },
-                d => d.country
+                d => d["Country Name"]
             );
 
             //
