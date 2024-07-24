@@ -252,11 +252,11 @@ function renderChart(countryArray, scatterData, filteredData) {
                 let anotationHeight = 40;
                 // Append notation box group
                 const notationGroup = scatterSvg.append("g")
-                .attr("transform", `translate(${width - 150},${anotationHeight})`); 
+                .attr("transform", `translate(${width - 160},${anotationHeight})`); 
                 
                 // Append rectangle for the notation box
                 notationGroup.append("rect")
-                    .attr("width", 140)
+                    .attr("width", 160)
                     .attr("height", 60)
                     .attr("fill", "white")
                     .attr("stroke", "black")
