@@ -335,8 +335,6 @@ function renderChart(countryArray, scatterData) {
 
 
 
-            
-    }
 
     // Initial chart rendering
     updateChartDimensions();
