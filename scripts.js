@@ -59,10 +59,10 @@ function updateChart(data, minYear, maxYear) {
 
 
     // 
-    console.log("Scatter data:", scatterData)
+    console.log("Scatter data:", scatterPlotData)
 
     // Call the function to render the chart
-    renderChart(countryArray,scatterData);
+    renderChart(barChartData,scatterPlotData);
 
 
 }
