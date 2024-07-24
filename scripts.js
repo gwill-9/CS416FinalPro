@@ -189,8 +189,18 @@ function renderChart(countryArray, scatterData) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", .9);
+
+                    // Get the width of the tooltip
+                    const tooltipWidth = tooltip.node().offsetWidth;
+                    
+                    // Calculate the position, making sure the tooltip doesn't go off the right edge
+                    let left = event.pageX + 5;
+                    if (left + tooltipWidth > window.innerWidth) {
+                        left = event.pageX - tooltipWidth - 5;
+                    }
+                //fill tooltip
                 tooltip.html(`Country: ${d.country}<br/>X: ${d.x}<br/>Y: ${d.y}`)
-                    .style("left", (event.pageX + 5) + "px")
+                    .style("left", left + "px")
                     .style("top", (event.pageY - 28) + "px");
             })
             .on("mouseout", function(d) {
