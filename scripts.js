@@ -4,7 +4,7 @@ var Scope = 0
 let selectedCountry = 'none';
 let selectedCountry1 = null;
 let selectedCountry2 = null;
-
+const selectedCountries = [];
 
 console.log('version 1.13');
     
@@ -225,12 +225,13 @@ function renderChart(countryArray, scatterData) {
             });
 
 
+
         // botten logic
         document.getElementById('save-country-1').addEventListener('click', function() {
             selectedCountry1 = selectedCountry;
             console.log(selectedCountry1);
             if (selectedCountry1!='none') {
-                renderChart(countryArray, scatterData, breakdownData); // Ensure to pass the required data
+                renderChart(countryArray, scatterData); // Ensure to pass the required data
             }
         });
         
@@ -238,7 +239,7 @@ function renderChart(countryArray, scatterData) {
             selectedCountry2 = selectedCountry;
             console.log(selectedCountry2);
             if (selectedCountry2!='none') {
-                renderChart(countryArray, scatterData, breakdownData); // Ensure to pass the required data
+                renderChart(countryArray, scatterData); // Ensure to pass the required data
             }
         });
 
@@ -253,18 +254,17 @@ function renderChart(countryArray, scatterData) {
             .append("g")
             .attr("transform", `translate(${margin.left},${margin.top})`);
 
-        // Check if two countries are selected
-        if (selectedCountries.length === 2) {
-             const selectedCountries = [selectedCountry1, selectedCountry2];
+        // Check if country is selected
+        if (selectedCountry1!=Nan || selectedCountry2!=Nan) {
+            selectedCountries = [selectedCountry1, selectedCountry2];
 
             // Filter breakdown data for the selected countries
-            const filteredData = breakdownData.filter(d => selectedCountries.includes(d.country));
+            const breakdownData = filteredData.filter(d => selectedCountries.includes(d.country));
 
             // Process breakdown data to average over years and split by energy type
             const breakdownProcessed = d3.rollups(
-                filteredData,
+                breakdownData,
                 v => {
-                    const total = v.reduce((sum, d) => sum + d['Electricity production from coal sources (% of total)'], 0);
                     return {
                         coal: d3.mean(v, d => +d['Electricity production from coal sources (% of total)']),
                         hydro: d3.mean(v, d => +d['Electricity production from hydroelectric sources (% of total)']),
