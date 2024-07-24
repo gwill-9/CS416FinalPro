@@ -8,8 +8,12 @@ let selectedCountries = [];
 let countryArrayGlobal= [];
 let scatterDataGlobal = [];
 let filteredDataGlobal;
+let inputData;
+let minYearGlobal;
+let maxYearGlobal;
 
-console.log('version 1.37');
+
+console.log('version 1.38');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -549,39 +553,48 @@ document.getElementById('save-country-2').addEventListener('click', function() {
 });
 
 document.getElementById('regions').addEventListener('click', function() {
-   
+    Scope = 0;
+    updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('all-regions').addEventListener('click', function() {
-    
+    Scope = 1;
+    updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('north-america').addEventListener('click', function() {
-   
+    Scope = 2;
+    updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('europe-central-asia').addEventListener('click', function() {
-    
+    Scope = 4;
+    updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('east-asia-pacific').addEventListener('click', function() {
-    
+    Scope = 5;
+    updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('middle-east-north-africa').addEventListener('click', function() {
-    
+    Scope = 6;
+    updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('latin-america-caribbean').addEventListener('click', function() {
-    
+    Scope = 7;
+    updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('south-asia').addEventListener('click', function() {
-    
+    Scope = 8;
+    updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('sub-saharan-africa').addEventListener('click', function() {
-    
+    Scope = 9;
+    updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 
@@ -637,22 +650,26 @@ d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
     });
 
     // Initial year range
-    let minYear = 2010;
+    let minYear = 2014;
     let maxYear = 2014;
 
     // Update year range display
     d3.select("#year-range").text(`${minYear} - ${maxYear}`);
+
+    // Save data
+    inputData = data;
 
     // Create initial chart
     updateChart(data, minYear, maxYear);
 
     // Update chart when slider values change
     d3.select("#year-slider").on("input", function() {
-        minYear = +this.value;
+        minYearGlobal = +this.value;
         // console.log(minYear);
-        maxYear = 2014;//+d3.select("#year-slider-max").property("value");
-        d3.select("#year-range").text(`${minYear} - ${maxYear}`);
-        updateChart(data, minYear, maxYear);
+        maxYearGlobal = 2014;//+d3.select("#year-slider-max").property("value");
+        d3.select("#year-range").text(`${minYearGlobal} - ${maxYearGlobal}`);
+        
+        updateChart(data, minYearGlobal, maxYearGlobal);
     })
     // .on("click", function(event, d) {
     //     // check for selection click
