@@ -2,7 +2,7 @@
 
 var Scope = 0
 
-console.log('version 1.06');
+console.log('version 1.07');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -144,7 +144,7 @@ function renderChart(countryArray, scatterData) {
         const yScatter = d3.scaleLinear()
             .domain([0, d3.max(scatterData, d => d.y)])
             .range([scatterHeight, 0]);
-
+        // x axis
         scatterSvg.append("g")
             .attr("transform", `translate(0,${scatterHeight})`)
             .call(d3.axisBottom(xScatter))
@@ -155,6 +155,7 @@ function renderChart(countryArray, scatterData) {
             .attr("text-anchor", "middle")
             .text("Electric power consumption (kWh per capita)");
 
+        // y axis
         scatterSvg.append("g")
             .call(d3.axisLeft(yScatter))
             .append("text")
@@ -165,14 +166,38 @@ function renderChart(countryArray, scatterData) {
             .attr("transform", "rotate(-90)")
             .text("C02 From Electric Power Generation And Heating (kt Per capita)");
 
-        scatterSvg.selectAll("circle")
-            .data(scatterData)
+        // Create a tooltip div that is hidden by default
+        const tooltip = d3.select("#scatter-plot-container")
+            .append("div")
+            .style("position", "absolute")
+            .style("background", "white")
+            .style("border", "1px solid #ccc")
+            .style("padding", "5px")
+            .style("pointer-events", "none")
+            .style("opacity", 0);
+
+        // Circles
+        svg.selectAll("circle")
+            .data(scatterPlotData)
             .enter()
             .append("circle")
-            .attr("cx", d => xScatter(d.x))
-            .attr("cy", d => yScatter(d.y))
+            .attr("cx", d => x(d.x))
+            .attr("cy", d => y(d.y))
             .attr("r", 5)
-            .attr("fill", "red");
+            .attr("fill", "red")
+            .on("mouseover", function(event, d) {
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                tooltip.html(`Country: ${d.country}<br/>X: ${d.x}<br/>Y: ${d.y}`)
+                    .style("left", (event.pageX + 5) + "px")
+                    .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", function(d) {
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
     }
 
     // Initial chart rendering
