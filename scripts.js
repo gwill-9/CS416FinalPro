@@ -436,10 +436,10 @@ d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
         d3.select("#year-range").text(`${minYear} - ${maxYear}`);
         updateChart(data, minYear, maxYear);
     })
-    .on("click", function(event, d) {
-        // check for selection click
-        selectedCountry = d.country; 
-    });
+    // .on("click", function(event, d) {
+    //     // check for selection click
+    //     selectedCountry = d.country; 
+    // });
 
     // d3.select("#year-slider-max").on("input", function() {
     //     maxYear = +this.value;
