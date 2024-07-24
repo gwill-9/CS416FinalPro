@@ -282,7 +282,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                 .order(d3.stackOrderNone)
                 .offset(d3.stackOffsetNone);
 
-            const series = stack(stackData);
+            const series = astack(stackData);
            
 
             // X axis for breakdown
