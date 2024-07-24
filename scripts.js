@@ -2,7 +2,7 @@
 
 var Scope = 0
 
-console.log('version 1.07');
+console.log('version 1.08');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -177,12 +177,12 @@ function renderChart(countryArray, scatterData) {
             .style("opacity", 0);
 
         // Circles
-        svg.selectAll("circle")
+        scatterSvg.selectAll("circle")
             .data(scatterPlotData)
             .enter()
             .append("circle")
-            .attr("cx", d => x(d.x))
-            .attr("cy", d => y(d.y))
+            .attr("cx", d => xScatter(d.x))
+            .attr("cy", d => yScatter(d.y))
             .attr("r", 5)
             .attr("fill", "red")
             .on("mouseover", function(event, d) {
