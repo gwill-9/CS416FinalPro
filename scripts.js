@@ -2,7 +2,7 @@
 
 var Scope = 0
 
-console.log('version 1.05');
+console.log('version 1.06');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -159,11 +159,11 @@ function renderChart(countryArray, scatterData) {
             .call(d3.axisLeft(yScatter))
             .append("text")
             .attr("fill", "#000")
-            .attr("x", -margin.left)
+            .attr("x", margin.left)
             .attr("y", scatterHeight / 2)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
-            .text("C02 From Electric Power Generation And Heating Per Capita (kt)");
+            .text("C02 From Electric Power Generation And Heating (kt Per capita)");
 
         scatterSvg.selectAll("circle")
             .data(scatterData)
