@@ -9,7 +9,7 @@ let countryArrayGlobal= [];
 let scatterDataGlobal = [];
 let filteredDataGlobal;
 
-console.log('version 1.26');
+console.log('version 1.27');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -370,15 +370,19 @@ function renderChart(countryArray, scatterData, filteredData) {
                         .duration(200)
                         .style("opacity", .9);
     
+                     // Get the width of the tooltip
                     const tooltipWidth = tooltip.node().offsetWidth;
+
+                    // Calculate the position, making sure the tooltip doesn't go off the right edge
                     let left = event.pageX + 5;
                     if (left + tooltipWidth > window.innerWidth) {
                         left = event.pageX - tooltipWidth - 5;
                     }
-    
+
+                    // Fill tooltip with data
                     tooltip.html(`
                         <strong>${d.data.country}</strong><br>
-                        ${d.key}: ${d[1] - d[0]}%
+                        ${d.key}: ${Math.round(d[1] - d[0])}%
                     `)
                     .style("left", left + "px")
                     .style("top", (event.pageY - 28) + "px");
