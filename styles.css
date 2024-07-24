@@ -17,7 +17,7 @@ body {
 }
 
 #bar-chart-container {
-    height: 350px;
+    height: 330px;
 }
 
 #scatter-plot-container {
@@ -67,6 +67,17 @@ body {
 }
 
 
+#button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 20px; 
+}
 
+#button-container button {
+    margin-bottom: 5px; 
+    padding: 5px 10px;
+    cursor: pointer;
+}
 
 

@@ -9,7 +9,7 @@ let countryArrayGlobal= [];
 let scatterDataGlobal = [];
 let filteredDataGlobal;
 
-console.log('version 1.36');
+console.log('version 1.37');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -267,7 +267,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                 notationGroup.append("text")
                     .attr("x", 10)
                     .attr("y", 20)
-                    .text("North America consumes the") //text
+                    .text("North America consumes") //text
                     .attr("font-size", "12px")
                     .attr("fill", "black");
 
@@ -275,7 +275,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                 notationGroup.append("text")
                     .attr("x", 10)
                     .attr("y", 35)
-                    .text("most yet produces") //text
+                    .text("the most yet produces") //text
                     .attr("font-size", "12px")
                     .attr("fill", "black");
 
@@ -286,7 +286,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                     .attr("font-size", "12px")
                     .attr("fill", "black");
             }
-            if(Scope === 1){
+            if(Scope === 1){ //all contrys
                 let anotationHeight = 150;
                 // Append notation box group
                 const notationGroup = scatterSvg.append("g")
@@ -548,7 +548,41 @@ document.getElementById('save-country-2').addEventListener('click', function() {
     }
 });
 
+document.getElementById('regions').addEventListener('click', function() {
+   
+});
 
+document.getElementById('all-regions').addEventListener('click', function() {
+    
+});
+
+document.getElementById('north-america').addEventListener('click', function() {
+   
+});
+
+document.getElementById('europe-central-asia').addEventListener('click', function() {
+    
+});
+
+document.getElementById('east-asia-pacific').addEventListener('click', function() {
+    
+});
+
+document.getElementById('middle-east-north-africa').addEventListener('click', function() {
+    
+});
+
+document.getElementById('latin-america-caribbean').addEventListener('click', function() {
+    
+});
+
+document.getElementById('south-asia').addEventListener('click', function() {
+    
+});
+
+document.getElementById('sub-saharan-africa').addEventListener('click', function() {
+    
+});
 
 
 
