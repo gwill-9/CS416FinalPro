@@ -393,6 +393,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                         .style("opacity", 0);
                 });
 
+                // Define legend items
                 const legendItems = [
                     { color: 'coal', label: 'Coal' },
                     { color: 'hydro', label: 'Hydro' },
@@ -402,31 +403,26 @@ function renderChart(countryArray, scatterData, filteredData) {
                     { color: 'other', label: 'Other' }
                 ];
 
-                // Add a group for the legend
-                const legendWidth = 150;
-                const legendHeight = 20 * legendItems.length;
-                const legendPadding = 10;
-
+                // Create the legend
                 const legend = breakdownSvg.append("g")
-                    .attr("transform", `translate(${width + 20}, 20)`);  // Position the legend
+                    .attr("transform", `translate(${width + 20}, 20)`);
 
-                // Append rectangles and text for each legend item
                 legend.selectAll("rect")
                     .data(legendItems)
                     .enter()
                     .append("rect")
                     .attr("x", 0)
-                    .attr("y", (d, i) => i * (legendHeight / legendItems.length))
+                    .attr("y", (d, i) => i * 20)
                     .attr("width", 15)
                     .attr("height", 15)
-                    .attr("fill", d => color(d.color));  // Ensure 'color' maps to your color scale
+                    .attr("fill", d => color(d.color));
 
                 legend.selectAll("text")
                     .data(legendItems)
                     .enter()
                     .append("text")
                     .attr("x", 20)
-                    .attr("y", (d, i) => i * (legendHeight / legendItems.length) + 12)
+                    .attr("y", (d, i) => i * 20 + 12)
                     .text(d => d.label)
                     .style("font-size", "12px")
                     .attr("fill", "#000");
