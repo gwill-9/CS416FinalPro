@@ -14,7 +14,7 @@ let maxYearGlobal = 2014;
 let Listener = false;
 
 
-console.log('version 1.41');
+console.log('version 1.42');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -42,8 +42,33 @@ function updateChart(data, minYear, maxYear) {
         //all countrys
         filteredScopeData = filteredData.filter(d => d.Region);
         } else {
-            // If Scope is not 0, handle the case where Region is defined
-            filteredScopeData = filteredData.filter(d => d.Region);
+            if(Scope === 2){
+                filteredScopeData = filteredData[filteredData["Region"]=== "North America"];
+            } else{
+                if(Scope === 3){
+                    filteredScopeData = filteredData[filteredData["Region"]=== "Europe & Central Asia"];
+                } else{
+                    if(Scope === 4){
+                        filteredScopeData = filteredData[filteredData["Region"]=== "East Asia & Pacific"];   
+                    } else{
+                        if(Scope === 5){
+                            filteredScopeData = filteredData[filteredData["Region"]=== "Middle East & North Africa"];
+                        } else{
+                            if(Scope === 6){
+                                filteredScopeData = filteredData[filteredData["Region"]=== "Latin America & Caribbean"];
+                            } else {
+                                if(Scope === 7){
+                                    filteredScopeData = filteredData[filteredData["Region"]=== "South Asia"];
+                                } else {
+                                    if(Scope === 8){
+                                        filteredScopeData = filteredData[filteredData["Region"]=== "Sub-Saharan Africa"];
+                                    } else { filteredScopeData = filteredData.filter(d => d.Region); }
+                                }
+                            }
+                        }
+                    }
+                }   
+            }
         }
     }
 
@@ -533,9 +558,9 @@ function renderChart(countryArray, scatterData, filteredData) {
 
     // Add an event listener to resize the charts when the window is resized and check so only one
     if(Listener){
-        Listener = true;
         window.removeEventListener('resize', updateChartDimensions);
-    }     
+    } 
+    Listener = true;    
     window.addEventListener('resize', updateChartDimensions);
 }
 //render chart end
@@ -664,7 +689,7 @@ d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
 
     // Save data
     inputData = data;
-    console.log(inputData);
+    //console.log(inputData);
 
     // Create initial chart
     updateChart(data, minYear, maxYear);
