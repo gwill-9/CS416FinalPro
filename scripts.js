@@ -9,7 +9,7 @@ let countryArrayGlobal= [];
 let scatterDataGlobal = [];
 let filteredDataGlobal;
 
-console.log('version 1.25');
+console.log('version 1.26');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -365,8 +365,29 @@ function renderChart(countryArray, scatterData, filteredData) {
                 .attr("y", d => yBreakdown(d[1]))
                 .attr("height", d => yBreakdown(d[0]) - yBreakdown(d[1]))
                 .attr("width", xBreakdown.bandwidth())
-                .append("title")
-                .text(d => `${d.data.country}<br/>${d.key}: ${d[1] - d[0]}%`);
+                .on("mouseover", function(event, d) {
+                    tooltip.transition()
+                        .duration(200)
+                        .style("opacity", .9);
+    
+                    const tooltipWidth = tooltip.node().offsetWidth;
+                    let left = event.pageX + 5;
+                    if (left + tooltipWidth > window.innerWidth) {
+                        left = event.pageX - tooltipWidth - 5;
+                    }
+    
+                    tooltip.html(`
+                        <strong>${d.data.country}</strong><br>
+                        ${d.key}: ${d[1] - d[0]}%
+                    `)
+                    .style("left", left + "px")
+                    .style("top", (event.pageY - 28) + "px");
+                })
+                .on("mouseout", function() {
+                    tooltip.transition()
+                        .duration(500)
+                        .style("opacity", 0);
+                });
         }
     }
 
@@ -378,8 +399,6 @@ function renderChart(countryArray, scatterData, filteredData) {
 
     // Add an event listener to resize the charts when the window is resized
     window.addEventListener('resize', updateChartDimensions);
-
-
 }
 
 
