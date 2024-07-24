@@ -6,7 +6,7 @@ let selectedCountry1 = null;
 let selectedCountry2 = null;
 
 
-console.log('version 1.12');
+console.log('version 1.13');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
