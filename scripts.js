@@ -531,11 +531,12 @@ function renderChart(countryArray, scatterData, filteredData) {
     // Initial chart rendering
     updateChartDimensions();
 
-    // Add an event listener to resize the charts when the window is resized
-    if(!Listener){
+    // Add an event listener to resize the charts when the window is resized and check so only one
+    if(Listener){
         Listener = true;
-        window.addEventListener('resize', updateChartDimensions);
+        window.removeEventListener('resize', updateChartDimensions);
     }     
+    window.addEventListener('resize', updateChartDimensions);
 }
 //render chart end
 
