@@ -2,8 +2,11 @@
 
 var Scope = 0
 let selectedCountry = 'none';
+let selectedCountry1 = null;
+let selectedCountry2 = null;
 
-console.log('version 1.11');
+
+console.log('version 1.12');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -87,6 +90,7 @@ function renderChart(countryArray, scatterData) {
         // Remove existing SVGs if they exist
         d3.select("#bar-chart-container svg").remove();
         d3.select("#scatter-plot-container svg").remove();
+        d3.select("#bar-chart-compare svg").remove();
 
         // Append SVG for bar chart
         const barSvg = d3.select("#bar-chart-container")
@@ -218,6 +222,120 @@ function renderChart(countryArray, scatterData) {
                 selectedCountry = d.country;
                 d3.select("#selected-country-text").text(`Selected Country: ${selectedCountry}`);
             });
+
+
+
+
+        // Append SVG for electrical breakdown chart
+        const breakdownSvg = d3.select("#bar-chart-compare")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", breakdownHeight + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // Check if two countries are selected
+        if (selectedCountries.length === 2) {
+             const selectedCountries = [selectedCountry1, selectedCountry2];
+
+            // Filter breakdown data for the selected countries
+            const filteredData = breakdownData.filter(d => selectedCountries.includes(d.country));
+
+            // Process breakdown data to average over years and split by energy type
+            const breakdownProcessed = d3.rollups(
+                filteredData,
+                v => {
+                    const total = v.reduce((sum, d) => sum + d['Electricity production from coal sources (% of total)'], 0);
+                    return {
+                        coal: d3.mean(v, d => +d['Electricity production from coal sources (% of total)']),
+                        hydro: d3.mean(v, d => +d['Electricity production from hydroelectric sources (% of total)']),
+                        gas: d3.mean(v, d => +d['Electricity production from natural gas sources (% of total)']),
+                        nuclear: d3.mean(v, d => +d['Electricity production from nuclear sources (% of total)']),
+                        oil: d3.mean(v, d => +d['Electricity production from oil sources (% of total)']),
+                        other: 100 - (d3.mean(v, d => +d['Electricity production from coal sources (% of total)'])
+                            + d3.mean(v, d => +d['Electricity production from hydroelectric sources (% of total)'])
+                            + d3.mean(v, d => +d['Electricity production from natural gas sources (% of total)'])
+                            + d3.mean(v, d => +d['Electricity production from nuclear sources (% of total)'])
+                            + d3.mean(v, d => +d['Electricity production from oil sources (% of total)']))
+                    };
+                },
+                d => d.country
+            );
+
+            // Flatten the processed data for stacking
+            const stackData = breakdownProcessed.map(([country, values]) => ({
+                country,
+                coal: values.coal,
+                hydro: values.hydro,
+                gas: values.gas,
+                nuclear: values.nuclear,
+                oil: values.oil,
+                other: values.other
+            }));
+
+            // Set up the color scale for breakdown
+            const color = d3.scaleOrdinal()
+                .domain(['coal', 'hydro', 'gas', 'nuclear', 'oil', 'other'])
+                .range(['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']);
+
+            // Stack the data
+            const astack = d3.stack()
+                .keys(['coal', 'hydro', 'gas', 'nuclear', 'oil', 'other'])
+                .order(d3.stackOrderNone)
+                .offset(d3.stackOffsetNone);
+
+            const series = stack(stackData);
+           
+
+            // X axis for breakdown
+            const xBreakdown = d3.scaleBand()
+                .domain(stackData.map(d => d.country))
+                .range([0, width])
+                .padding(0.2);
+            breakdownSvg.append("g")
+                .attr("transform", `translate(0,${breakdownHeight})`)
+                .call(d3.axisBottom(xBreakdown))
+                .selectAll("text")
+                .attr("transform", "translate(-10,0)rotate(-45)")
+                .style("text-anchor", "end");
+
+             // Y axis for breakdown
+             const yBreakdown = d3.scaleLinear()
+             .domain([0, 100])
+             .range([breakdownHeight, 0]);
+         breakdownSvg.append("g")
+             .call(d3.axisLeft(yBreakdown))
+             .append("text")
+             .attr("fill", "#000")
+             .attr("x", -margin.left)
+             .attr("y", breakdownHeight / 2)
+             .attr("text-anchor", "middle")
+             .attr("transform", "rotate(-90)")
+             .text("Percentage (%)");
+
+            // Append the stacked bars
+            breakdownSvg.selectAll(".layer")
+                .data(series)
+                .enter()
+                .append("g")
+                .attr("class", "layer")
+                .attr("fill", d => color(d.key))
+                .selectAll("rect")
+                .data(d => d)
+                .enter()
+                .append("rect")
+                .attr("x", d => xBreakdown(d.data.country))
+                .attr("y", d => yBreakdown(d[1]))
+                .attr("height", d => yBreakdown(d[0]) - yBreakdown(d[1]))
+                .attr("width", xBreakdown.bandwidth())
+                .append("title")
+                .text(d => `${d.data.country}<br/>${d.key}: ${d[1] - d[0]}%`);
+        }
+    }
+
+
+
+            
     }
 
     // Initial chart rendering
@@ -226,6 +344,7 @@ function renderChart(countryArray, scatterData) {
     // Add an event listener to resize the charts when the window is resized
     window.addEventListener('resize', updateChartDimensions);
 }
+
 
 
 
