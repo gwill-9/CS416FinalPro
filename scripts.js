@@ -4,7 +4,7 @@ var Scope = 0
 let selectedCountry = 'none';
 let selectedCountry1 = null;
 let selectedCountry2 = null;
-selectedCountries = [];
+let selectedCountries = [];
 
 console.log('version 1.15');
     
