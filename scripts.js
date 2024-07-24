@@ -245,7 +245,7 @@ function renderChart(countryArray, scatterData, filteredData) {
             })
             .on("click", function(event, d) {
                 selectedCountry = d.country;
-                d3.select("#selected-country-text").text(`Selected Country: ${selectedCountry}`);
+                d3.select("#selected-country-text").text(`Selected Area: ${selectedCountry}`);
             });
 
 
