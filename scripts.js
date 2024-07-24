@@ -5,8 +5,11 @@ let selectedCountry = 'none';
 let selectedCountry1 = null;
 let selectedCountry2 = null;
 let selectedCountries = [];
+let countryArrayGlobal= [];
+let scatterDataGlobal = [];
+let filteredDataGlobal = [];
 
-console.log('version 1.20');
+console.log('version 1.21');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -72,6 +75,11 @@ function updateChart(data, minYear, maxYear) {
 
 // Function to render the bar chart and scatter plot
 function renderChart(countryArray, scatterData, filteredData) {
+    // back up gobal for lissiners
+    countryArrayGlobal = countryArray;
+    scatterDataGlobal = scatterData;
+    filteredDataGlobal = filteredData;
+
     // Sort the bar chart data in descending order based on value
     countryArray.sort((a, b) => b.value - a.value);
 
@@ -371,7 +379,7 @@ document.getElementById('save-country-1').addEventListener('click', function() {
     selectedCountry1 = selectedCountry;
     console.log(selectedCountry1);
     if (selectedCountry1!=null) {
-        renderChart(countryArray, scatterData, filteredData); // Ensure to pass the required data
+        renderChart(countryArrayGlobal, scatterDataGlobal, filteredDataGlobal); // Ensure to pass the required data
     }
 });
 
@@ -379,7 +387,7 @@ document.getElementById('save-country-2').addEventListener('click', function() {
     selectedCountry2 = selectedCountry;
     console.log(selectedCountry2);
     if (selectedCountry2!=null) {
-        renderChart(countryArray, scatterData,filteredData); // Ensure to pass the required data
+        renderChart(countryArrayGlobal, scatterDataGlobal,filteredDataGlobal); // Ensure to pass the required data
     }
 });
 
