@@ -224,6 +224,24 @@ function renderChart(countryArray, scatterData) {
             });
 
 
+        // botton logic
+        document.getElementById('save-country-1').addEventListener('click', function() {
+            selectedCountry1 = selectedCountry;
+            if (selectedCountry1!='none') {
+                renderChart(countryArray, scatterData, breakdownData); // Ensure to pass the required data
+            }
+        });
+        
+        document.getElementById('save-country-2').addEventListener('click', function() {
+            selectedCountry2 = selectedCountry;
+            if (selectedCountry2!='none') {
+                renderChart(countryArray, scatterData, breakdownData); // Ensure to pass the required data
+            }
+        });
+
+
+
+
 
 
         // Append SVG for electrical breakdown chart
