@@ -6,7 +6,7 @@ let selectedCountry1 = null;
 let selectedCountry2 = null;
 let selectedCountries = [];
 
-console.log('version 1.16');
+console.log('version 1.17');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -65,13 +65,13 @@ function updateChart(data, minYear, maxYear) {
     // console.log("Scatter data:", scatterPlotData)
 
     // Call the function to render the chart
-    renderChart(barChartData,scatterPlotData);
+    renderChart(barChartData,scatterPlotData,filteredData);
 
 
 }
 
 // Function to render the bar chart and scatter plot
-function renderChart(countryArray, scatterData) {
+function renderChart(countryArray, scatterData, filteredData) {
     // Sort the bar chart data in descending order based on value
     countryArray.sort((a, b) => b.value - a.value);
 
@@ -342,7 +342,7 @@ function renderChart(countryArray, scatterData) {
         selectedCountry1 = selectedCountry;
         console.log(selectedCountry1);
         if (selectedCountry1!='none') {
-            renderChart(countryArray, scatterData); // Ensure to pass the required data
+            renderChart(countryArray, scatterData, filteredData); // Ensure to pass the required data
         }
     });
     
@@ -350,7 +350,7 @@ function renderChart(countryArray, scatterData) {
         selectedCountry2 = selectedCountry;
         console.log(selectedCountry2);
         if (selectedCountry2!=null) {
-            renderChart(countryArray, scatterData); // Ensure to pass the required data
+            renderChart(countryArray, scatterData,filteredData); // Ensure to pass the required data
         }
     });
 
