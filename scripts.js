@@ -9,7 +9,7 @@ let countryArrayGlobal= [];
 let scatterDataGlobal = [];
 let filteredDataGlobal = [];
 
-console.log('version 1.21');
+console.log('version 1.22');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -266,6 +266,7 @@ function renderChart(countryArray, scatterData, filteredData) {
 
             // Filter breakdown data for the selected countries
             const breakdownData = filteredData.filter(d => selectedCountries.includes(d.country));
+            console.log("breakdownData data:", breakdownData)
 
             // Process breakdown data to average over years and split by energy type
             const breakdownProcessed = d3.rollups(
@@ -286,6 +287,9 @@ function renderChart(countryArray, scatterData, filteredData) {
                 },
                 d => d.country
             );
+
+            //
+            console.log("breakdownProcessed data:", breakdownProcessed)
 
             // Flatten the processed data for stacking
             const stackData = breakdownProcessed.map(([country, values]) => ({
