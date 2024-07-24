@@ -1,6 +1,6 @@
 
 
-var Scope = 1
+var Scope = 0
 let selectedCountry = 'none';
 let selectedCountry1 = null;
 let selectedCountry2 = null;
@@ -9,7 +9,7 @@ let countryArrayGlobal= [];
 let scatterDataGlobal = [];
 let filteredDataGlobal;
 
-console.log('version 1.32');
+console.log('version 1.33');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -245,6 +245,54 @@ function renderChart(countryArray, scatterData, filteredData) {
                 selectedCountry = d.country;
                 d3.select("#selected-country-text").text(`Selected Area: ${selectedCountry}`);
             });
+
+            if(Scope === 0){
+                // Append notation box group
+                const notationGroup = scatterSvg.append("g")
+                .attr("transform", `translate(${width - 150},${20})`); 
+
+                // Append rectangle for the notation box
+                notationGroup.append("rect")
+                    .attr("width", 140)
+                    .attr("height", 60)
+                    .attr("fill", "white")
+                    .attr("stroke", "black")
+                    .attr("rx", 5)  // Rounded corners
+                    .attr("ry", 5);
+
+                // Append text for the notation box
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 20)
+                    .text("Note: ")
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                // Add more text lines if needed
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 35)
+                    .text("North America uses the most but it dose not produce that much more CO2")
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 50)
+                    .text("More information.")
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+            }
+
+
+
+
+
+
+
+
+
+
 
 
 
