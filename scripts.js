@@ -32,7 +32,7 @@ function updateChart(data, minYear, maxYear) {
         filteredScopeData = filteredScopeData.filter(d => distinctRegions.includes(d["Country Name"]));
         // console.log("Filtered Data (Scope 0) after compare:", filteredScopeData);
 
-    } if(scope === 1){
+    } if(Scope === 1){
         //all countrys
         filteredScopeData = filteredData.filter(d => d.Region);
 
