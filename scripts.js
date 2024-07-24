@@ -9,7 +9,7 @@ let countryArrayGlobal= [];
 let scatterDataGlobal = [];
 let filteredDataGlobal;
 
-console.log('version 1.35');
+console.log('version 1.36');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -266,7 +266,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                 // Append text for the notation box
                 notationGroup.append("text")
                     .attr("x", 10)
-                    .attr("y", anotationHeight+20)
+                    .attr("y", 20)
                     .text("North America uses the")
                     .attr("font-size", "12px")
                     .attr("fill", "black");
@@ -274,14 +274,14 @@ function renderChart(countryArray, scatterData, filteredData) {
                 // Add more text lines if needed
                 notationGroup.append("text")
                     .attr("x", 10)
-                    .attr("y", anotationHeight+35)
+                    .attr("y", 35)
                     .text("most but it dose not produce")
                     .attr("font-size", "12px")
                     .attr("fill", "black");
 
                 notationGroup.append("text")
                     .attr("x", 10)
-                    .attr("y", anotationHeight+50)
+                    .attr("y", 50)
                     .text("that much more CO2.")
                     .attr("font-size", "12px")
                     .attr("fill", "black");
