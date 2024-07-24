@@ -58,8 +58,7 @@ function updateChart(data, minYear, maxYear) {
     }));
 
 
-    // 
-    console.log("Scatter data:", scatterPlotData)
+    // console.log("Scatter data:", scatterPlotData)
 
     // Call the function to render the chart
     renderChart(barChartData,scatterPlotData);
