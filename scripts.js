@@ -29,29 +29,34 @@ function updateChart(data, minYear, maxYear) {
         filteredScopeData = filteredData.filter(d => d.Region);
     }
 
-    // Group by country and calculate the product for each country
+    // Group by country and calculate the average for each country
     const countryData = d3.rollups(filteredScopeData,
         v => {
             const co2Electricity = d3.mean(v.filter(d => d["Indicator Name"] === 'CO2 emissions from electricity and heat production, total (% of total fuel combustion)'), d => +d.Value);
             const co2Total = d3.mean(v.filter(d => d["Indicator Name"] === 'CO2 emissions (kt)'), d => +d.Value);
             const totalPop = d3.mean(v.filter(d => d["Indicator Name"] === 'Population, total'), d => +d.Value);
-            if ((co2Electricity * co2Total)/ totalPop==NaN){
-                return 0;
-            }else{
-                return (co2Electricity * co2Total) / totalPop;
-            }
+            const calculatedValue = (co2Electricity * co2Total) / totalPop;
+            return{
+                calculatedValue: isNaN(calculatedValue) ? 0 : calculatedValue,
+                electricPowerConsumption: d3.mean(v.filter(d => d["Indicator Name"] === 'Electric power consumption (kWh per capita)'), d => +d.Value)
+            };
         },
         d => d["Country Name"]
     );
 
-    // Convert countryData to an array of objects with 'country' and 'value' properties
-    const countryArray = Array.from(countryData, ([countryName, calculatedValue]) => ({ country: countryName, value: calculatedValue }));
+    // Format the data for the bar chart
+    const barChartData = countryData.map(([countryName, values]) => ({
+        country: countryName,
+        value: values.calculatedValue
+    }));
 
-    // Print the array to the console to check the output
-    //console.log(countryArray);
+    /// Format the data for the scatter plot
+    const scatterPlotData = countryData.map(([countryName, values]) => ({
+        country: countryName,
+        x: values.electricPowerConsumption,
+        y: values.calculatedValue
+    }));
 
-    // Prepare scatter plot data
-    const scatterData = generateScatterData(filteredScopeData);
 
     // 
     console.log("Scatter data:", scatterData)
@@ -148,7 +153,7 @@ function renderChart(countryArray, scatterData) {
             .attr("x", width / 2)
             .attr("y", margin.bottom - 10)
             .attr("text-anchor", "middle")
-            .text("GDP per capita (current US$)");
+            .text("Electric power consumption (kWh per capita)");
 
         scatterSvg.append("g")
             .call(d3.axisLeft(yScatter))
@@ -177,13 +182,6 @@ function renderChart(countryArray, scatterData) {
     window.addEventListener('resize', updateChartDimensions);
 }
 
-// Function to make the Scatter Plot data
-function generateScatterData(filteredScopeData) {
-    return filteredScopeData.map(d => ({
-        x: d["GDP per capita (current US$)"], // X-axis
-        y: (d["CO2 emissions from electricity and heat production, total (% of total fuel combustion)"] * d["CO2 emissions (kt)"]) / d["Population, total"] // Y-axis calculation
-    }));
-}
 
 
 
