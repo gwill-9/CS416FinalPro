@@ -160,7 +160,7 @@ function renderChart(countryArray, scatterData) {
             .call(d3.axisLeft(yScatter))
             .append("text")
             .attr("fill", "#000")
-            .attr("x", margin.left)
+            .attr("x", -margin.left)
             .attr("y", scatterHeight / 2)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
