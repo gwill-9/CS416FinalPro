@@ -9,7 +9,7 @@ let countryArrayGlobal= [];
 let scatterDataGlobal = [];
 let filteredDataGlobal;
 
-console.log('version 1.28');
+console.log('version 1.29');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
