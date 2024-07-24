@@ -11,9 +11,10 @@ let filteredDataGlobal;
 let inputData;
 let minYearGlobal = 2014;
 let maxYearGlobal = 2014;
+let Listener = false;
 
 
-console.log('version 1.39');
+console.log('version 1.40');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -79,9 +80,9 @@ function updateChart(data, minYear, maxYear) {
 
     // Call the function to render the chart
     renderChart(barChartData,scatterPlotData,filteredData);
-
-
 }
+// update chart end
+
 
 // Function to render the bar chart and scatter plot
 function renderChart(countryArray, scatterData, filteredData) {
@@ -531,8 +532,12 @@ function renderChart(countryArray, scatterData, filteredData) {
     updateChartDimensions();
 
     // Add an event listener to resize the charts when the window is resized
-    window.addEventListener('resize', updateChartDimensions);
+    if(!Listener){
+        Listener = true;
+        window.addEventListener('resize', updateChartDimensions);
+    }     
 }
+//render chart end
 
 
 // botten logic
@@ -554,55 +559,46 @@ document.getElementById('save-country-2').addEventListener('click', function() {
 
 document.getElementById('regions').addEventListener('click', function() {
     Scope = 0;
-    window.removeEventListener('resize', updateChartDimensions);
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('all-regions').addEventListener('click', function() {
     Scope = 1;
-    window.removeEventListener('resize', updateChartDimensions);
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('north-america').addEventListener('click', function() {
     Scope = 2;
-    window.removeEventListener('resize', updateChartDimensions);
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('europe-central-asia').addEventListener('click', function() {
     Scope = 4;
-    window.removeEventListener('resize', updateChartDimensions);
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('east-asia-pacific').addEventListener('click', function() {
     Scope = 5;
-    window.removeEventListener('resize', updateChartDimensions);
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('middle-east-north-africa').addEventListener('click', function() {
     Scope = 6;
-    window.removeEventListener('resize', updateChartDimensions);
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('latin-america-caribbean').addEventListener('click', function() {
     Scope = 7;
-    window.removeEventListener('resize', updateChartDimensions);
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('south-asia').addEventListener('click', function() {
     Scope = 8;
-    window.removeEventListener('resize', updateChartDimensions);
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('sub-saharan-africa').addEventListener('click', function() {
     Scope = 9;
-    window.removeEventListener('resize', updateChartDimensions);
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
@@ -667,6 +663,7 @@ d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
 
     // Save data
     inputData = data;
+    console.log(inputData);
 
     // Create initial chart
     updateChart(data, minYear, maxYear);
