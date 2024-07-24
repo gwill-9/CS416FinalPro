@@ -9,7 +9,7 @@ let countryArrayGlobal= [];
 let scatterDataGlobal = [];
 let filteredDataGlobal;
 
-console.log('version 1.29');
+console.log('version 1.30');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -141,7 +141,7 @@ function renderChart(countryArray, scatterData, filteredData) {
             .attr("fill", "steelblue")
             .on("click", function(event, d) {
                 selectedCountry = d.country;
-                d3.select("#selected-country-text").text(`Selected Country: ${selectedCountry}`);
+                d3.select("#selected-country-text").text(`Selected Area: ${selectedCountry}`);
             });
 
 
@@ -312,7 +312,7 @@ function renderChart(countryArray, scatterData, filteredData) {
 
             // Set up the color scale for breakdown
             const color = d3.scaleOrdinal()
-                .domain(['coal', 'hydro', 'gas', 'nuclear', 'oil', 'other'])
+                .domain(['coal', 'hydro', 'gas', 'nuclear', 'oil', 'other']) // maybe male colors better
                 .range(['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']);
 
             // Stack the data
@@ -348,7 +348,7 @@ function renderChart(countryArray, scatterData, filteredData) {
              .attr("y", breakdownHeight / 2)
              .attr("text-anchor", "middle")
              .attr("transform", "rotate(-90)")
-             .text("Percentage (%)");
+             .text("Percentage Of Electric Gernartion (%)");
 
             // Append the stacked bars
             breakdownSvg.selectAll(".layer")
