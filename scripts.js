@@ -178,7 +178,7 @@ function renderChart(countryArray, scatterData) {
 
         // Circles
         scatterSvg.selectAll("circle")
-            .data(scatterPlotData)
+            .data(scatterData)
             .enter()
             .append("circle")
             .attr("cx", d => xScatter(d.x))
