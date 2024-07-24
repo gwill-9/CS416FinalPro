@@ -6,7 +6,7 @@ let selectedCountry1 = null;
 let selectedCountry2 = null;
 let selectedCountries = [];
 
-console.log('version 1.18');
+console.log('version 1.19');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -271,6 +271,9 @@ function renderChart(countryArray, scatterData, filteredData) {
                 other: values.other
             }));
 
+            //
+            console.log("stack data:", stackData)
+
             // Set up the color scale for breakdown
             const color = d3.scaleOrdinal()
                 .domain(['coal', 'hydro', 'gas', 'nuclear', 'oil', 'other'])
@@ -337,13 +340,18 @@ function renderChart(countryArray, scatterData, filteredData) {
     // Initial chart rendering
     updateChartDimensions();
 
+    // Add an event listener to resize the charts when the window is resized
+    window.addEventListener('resize', updateChartDimensions);
+
+
 }
+
 
 // botten logic
 document.getElementById('save-country-1').addEventListener('click', function() {
     selectedCountry1 = selectedCountry;
     console.log(selectedCountry1);
-    if (selectedCountry1!='none') {
+    if (selectedCouyntr1!=null) {
         renderChart(countryArray, scatterData, filteredData); // Ensure to pass the required data
     }
 });
@@ -355,9 +363,6 @@ document.getElementById('save-country-2').addEventListener('click', function() {
         renderChart(countryArray, scatterData,filteredData); // Ensure to pass the required data
     }
 });
-
-// Add an event listener to resize the charts when the window is resized
-window.addEventListener('resize', updateChartDimensions);
 
 
 
