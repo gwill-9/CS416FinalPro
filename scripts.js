@@ -557,10 +557,7 @@ function renderChart(countryArray, scatterData, filteredData) {
     updateChartDimensions();
 
     // Add an event listener to resize the charts when the window is resized and check so only one
-    if(Listener){
-        window.removeEventListener('resize', updateChartDimensions);
-    } 
-    Listener = true;    
+    window.removeEventListener('resize', updateChartDimensions);  
     window.addEventListener('resize', updateChartDimensions);
 }
 //render chart end
