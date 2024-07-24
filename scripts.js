@@ -7,14 +7,15 @@ let selectedCountry2 = null;
 let selectedCountries = [];
 let countryArrayGlobal= [];
 let scatterDataGlobal = [];
-let filteredDataGlobal = [];
+let filteredDataGlobal;
 
-console.log('version 1.22');
+console.log('version 1.23');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
     // Filter data based on year range
     const filteredData = data.filter(d => d.Year >= minYear && d.Year <= maxYear);
+    filteredDataGlobal = filteredData;
 
     let filteredScopeData;
 
@@ -78,7 +79,6 @@ function renderChart(countryArray, scatterData, filteredData) {
     // back up gobal for lissiners
     countryArrayGlobal = countryArray;
     scatterDataGlobal = scatterData;
-    filteredDataGlobal = filteredData;
 
     // Sort the bar chart data in descending order based on value
     countryArray.sort((a, b) => b.value - a.value);
@@ -263,10 +263,11 @@ function renderChart(countryArray, scatterData, filteredData) {
         // Check if country is selected
         if (selectedCountry1!=null || selectedCountry2!=null) {
             selectedCountries = [selectedCountry1, selectedCountry2];
-
+            console.log("selectedCountries data:", selectedCountries);
             // Filter breakdown data for the selected countries
-            const breakdownData = filteredData.filter(d => selectedCountries.includes(d.country));
-            console.log("breakdownData data:", breakdownData)
+            console.log("filteredData data:", filteredData);
+            const breakdownData = filteredData.filter(d => selectedCountries.includes(d["Country Name"]));
+            console.log("breakdownData data:", breakdownData);
 
             // Process breakdown data to average over years and split by energy type
             const breakdownProcessed = d3.rollups(
