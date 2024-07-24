@@ -9,7 +9,7 @@ let countryArrayGlobal= [];
 let scatterDataGlobal = [];
 let filteredDataGlobal;
 
-console.log('version 1.31');
+console.log('version 1.32');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -35,8 +35,6 @@ function updateChart(data, minYear, maxYear) {
     } if(Scope === 1){
         //all countrys
         filteredScopeData = filteredData.filter(d => d.Region);
-
-
     }else {
         // If Scope is not 0, handle the case where Region is defined
         filteredScopeData = filteredData.filter(d => d.Region);
@@ -315,8 +313,8 @@ function renderChart(countryArray, scatterData, filteredData) {
 
             // Set up the color scale for breakdown
             const color = d3.scaleOrdinal()
-                .domain(['coal', 'hydro', 'gas', 'nuclear', 'oil', 'other']) // maybe male colors better
-                .range(['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']);
+                .domain(['coal', 'hydro', 'gas', 'nuclear', 'oil', 'other']) 
+                .range(['#8c564b','#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']);
 
             // Stack the data
             const astack = d3.stack()
