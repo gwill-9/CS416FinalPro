@@ -6,7 +6,7 @@ let selectedCountry1 = null;
 let selectedCountry2 = null;
 let selectedCountries = [];
 
-console.log('version 1.15');
+console.log('version 1.16');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -225,27 +225,6 @@ function renderChart(countryArray, scatterData) {
             });
 
 
-
-        // botten logic
-        document.getElementById('save-country-1').addEventListener('click', function() {
-            selectedCountry1 = selectedCountry;
-            console.log(selectedCountry1);
-            if (selectedCountry1!='none') {
-                renderChart(countryArray, scatterData); // Ensure to pass the required data
-            }
-        });
-        
-        document.getElementById('save-country-2').addEventListener('click', function() {
-            selectedCountry2 = selectedCountry;
-            console.log(selectedCountry2);
-            if (selectedCountry2!='none') {
-                renderChart(countryArray, scatterData); // Ensure to pass the required data
-            }
-        });
-
-
-
-
         // Append SVG for electrical breakdown chart
         const breakdownSvg = d3.select("#bar-chart-compare")
             .append("svg")
@@ -357,6 +336,23 @@ function renderChart(countryArray, scatterData) {
 
     // Initial chart rendering
     updateChartDimensions();
+
+    // botten logic
+    document.getElementById('save-country-1').addEventListener('click', function() {
+        selectedCountry1 = selectedCountry;
+        console.log(selectedCountry1);
+        if (selectedCountry1!='none') {
+            renderChart(countryArray, scatterData); // Ensure to pass the required data
+        }
+    });
+    
+    document.getElementById('save-country-2').addEventListener('click', function() {
+        selectedCountry2 = selectedCountry;
+        console.log(selectedCountry2);
+        if (selectedCountry2!=null) {
+            renderChart(countryArray, scatterData); // Ensure to pass the required data
+        }
+    });
 
     // Add an event listener to resize the charts when the window is resized
     window.addEventListener('resize', updateChartDimensions);
