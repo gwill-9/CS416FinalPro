@@ -9,7 +9,7 @@ let countryArrayGlobal= [];
 let scatterDataGlobal = [];
 let filteredDataGlobal;
 
-console.log('version 1.33');
+console.log('version 1.35');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -32,12 +32,14 @@ function updateChart(data, minYear, maxYear) {
         filteredScopeData = filteredScopeData.filter(d => distinctRegions.includes(d["Country Name"]));
         // console.log("Filtered Data (Scope 0) after compare:", filteredScopeData);
 
-    } if(Scope === 1){
+    } else{
+        if(Scope === 1){
         //all countrys
         filteredScopeData = filteredData.filter(d => d.Region);
-    }else {
-        // If Scope is not 0, handle the case where Region is defined
-        filteredScopeData = filteredData.filter(d => d.Region);
+        } else {
+            // If Scope is not 0, handle the case where Region is defined
+            filteredScopeData = filteredData.filter(d => d.Region);
+        }
     }
 
     // Group by country and calculate the average for each country
@@ -247,10 +249,11 @@ function renderChart(countryArray, scatterData, filteredData) {
             });
 
             if(Scope === 0){
+                let anotationHeight = 40;
                 // Append notation box group
                 const notationGroup = scatterSvg.append("g")
-                .attr("transform", `translate(${width - 150},${20})`); 
-
+                .attr("transform", `translate(${width - 150},${anotationHeight})`); 
+                
                 // Append rectangle for the notation box
                 notationGroup.append("rect")
                     .attr("width", 140)
@@ -263,23 +266,23 @@ function renderChart(countryArray, scatterData, filteredData) {
                 // Append text for the notation box
                 notationGroup.append("text")
                     .attr("x", 10)
-                    .attr("y", 20)
-                    .text("Note: ")
+                    .attr("y", anotationHeight+20)
+                    .text("North America uses the")
                     .attr("font-size", "12px")
                     .attr("fill", "black");
 
                 // Add more text lines if needed
                 notationGroup.append("text")
                     .attr("x", 10)
-                    .attr("y", 35)
-                    .text("North America uses the most but it dose not produce that much more CO2")
+                    .attr("y", anotationHeight+35)
+                    .text("most but it dose not produce")
                     .attr("font-size", "12px")
                     .attr("fill", "black");
 
                 notationGroup.append("text")
                     .attr("x", 10)
-                    .attr("y", 50)
-                    .text("More information.")
+                    .attr("y", anotationHeight+50)
+                    .text("that much more CO2.")
                     .attr("font-size", "12px")
                     .attr("fill", "black");
             }
