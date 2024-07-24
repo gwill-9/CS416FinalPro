@@ -405,7 +405,7 @@ function renderChart(countryArray, scatterData, filteredData) {
 
                 // Create the legend
                 const legend = breakdownSvg.append("g")
-                    .attr("transform", `translate(${width + 20}, 20)`);
+                    .attr("transform", `translate(${width + margin.right - 130}, 20)`);
 
                 legend.selectAll("rect")
                     .data(legendItems)
