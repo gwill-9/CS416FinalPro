@@ -1,6 +1,6 @@
 
 
-var Scope = 0
+var Scope = 1
 let selectedCountry = 'none';
 let selectedCountry1 = null;
 let selectedCountry2 = null;
@@ -9,7 +9,7 @@ let countryArrayGlobal= [];
 let scatterDataGlobal = [];
 let filteredDataGlobal;
 
-console.log('version 1.30');
+console.log('version 1.31');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -32,7 +32,12 @@ function updateChart(data, minYear, maxYear) {
         filteredScopeData = filteredScopeData.filter(d => distinctRegions.includes(d["Country Name"]));
         // console.log("Filtered Data (Scope 0) after compare:", filteredScopeData);
 
-    } else {
+    } if(scope === 1){
+        //all countrys
+        filteredScopeData = filteredData.filter(d => d.Region);
+
+
+    }else {
         // If Scope is not 0, handle the case where Region is defined
         filteredScopeData = filteredData.filter(d => d.Region);
     }
@@ -263,7 +268,7 @@ function renderChart(countryArray, scatterData, filteredData) {
         // Check if country is selected
         if (selectedCountry1!=null || selectedCountry2!=null) {
             selectedCountries = [selectedCountry1, selectedCountry2];
-            console.log("selectedCountries data:", selectedCountries);
+            //console.log("selectedCountries data:", selectedCountries);
             // Filter breakdown data for the selected countries
             const breakdownData = filteredData.filter(d => selectedCountries.includes(d["Country Name"]));
 
@@ -293,8 +298,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                 d => d["Country Name"]
             );
 
-            //
-            console.log("breakdownProcessed data:", breakdownProcessed)
+            //console.log("breakdownProcessed data:", breakdownProcessed)
 
             // Flatten the processed data for stacking
             const stackData = breakdownProcessed.map(([country, values]) => ({
@@ -307,8 +311,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                 other: values.other
             }));
 
-            //
-            console.log("stack data:", stackData)
+            //console.log("stack data:", stackData)
 
             // Set up the color scale for breakdown
             const color = d3.scaleOrdinal()
@@ -444,7 +447,7 @@ function renderChart(countryArray, scatterData, filteredData) {
 // botten logic
 document.getElementById('save-country-1').addEventListener('click', function() {
     selectedCountry1 = selectedCountry;
-    console.log(selectedCountry1);
+    // console.log(selectedCountry1);
     if (selectedCountry1!=null) {
         renderChart(countryArrayGlobal, scatterDataGlobal, filteredDataGlobal); // Ensure to pass the required data
     }
@@ -452,7 +455,7 @@ document.getElementById('save-country-1').addEventListener('click', function() {
 
 document.getElementById('save-country-2').addEventListener('click', function() {
     selectedCountry2 = selectedCountry;
-    console.log(selectedCountry2);
+    // console.log(selectedCountry2);
     if (selectedCountry2!=null) {
         renderChart(countryArrayGlobal, scatterDataGlobal,filteredDataGlobal); // Ensure to pass the required data
     }
