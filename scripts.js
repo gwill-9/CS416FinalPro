@@ -79,6 +79,7 @@ function renderChart(countryArray, scatterData) {
     const margin = { top: 20, right: 30, bottom: 80, left: 60 };
     const barHeight = 300;
     const scatterHeight = 400;
+    const breakdownHeight = 300;
 
     // Function to update chart dimensions
     function updateChartDimensions() {
@@ -224,9 +225,10 @@ function renderChart(countryArray, scatterData) {
             });
 
 
-        // botton logic
+        // botten logic
         document.getElementById('save-country-1').addEventListener('click', function() {
             selectedCountry1 = selectedCountry;
+            console.log(selectedCountry1);
             if (selectedCountry1!='none') {
                 renderChart(countryArray, scatterData, breakdownData); // Ensure to pass the required data
             }
@@ -234,12 +236,11 @@ function renderChart(countryArray, scatterData) {
         
         document.getElementById('save-country-2').addEventListener('click', function() {
             selectedCountry2 = selectedCountry;
+            console.log(selectedCountry2);
             if (selectedCountry2!='none') {
                 renderChart(countryArray, scatterData, breakdownData); // Ensure to pass the required data
             }
         });
-
-
 
 
 
