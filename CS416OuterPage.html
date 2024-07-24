@@ -12,8 +12,13 @@
         <input type="range" id="year-slider" min="2000" max="2014" step="1" value="2020">
         <span id="year-range"></span>
     </div>
-    <div id="bar-chart-container" class="chart-container"></div>
-    <div id="scatter-plot-container" class="chart-container"></div>
+    <div id="chart-container">
+        <div id="bar-chart-container"></div>
+        <div id="selected-country-container">
+            <div id="selected-country-text">Selected Country: None</div>
+        </div>
+        <div id="scatter-plot-container"></div>
+    </div>
     <!-- <div id="color-bar-chart-container" class="chart-container"></div> -->
 
     <script src="https://d3js.org/d3.v6.min.js"></script>

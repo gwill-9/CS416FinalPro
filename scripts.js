@@ -1,8 +1,9 @@
 
 
 var Scope = 0
+let selectedCountry = 'none';
 
-console.log('version 1.10');
+console.log('version 1.11');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -124,7 +125,11 @@ function renderChart(countryArray, scatterData) {
             .attr("y", d => yBar(d.value))
             .attr("width", xBar.bandwidth())
             .attr("height", d => barChartHeight - yBar(d.value))
-            .attr("fill", "steelblue");
+            .attr("fill", "steelblue")
+            .on("click", function(event, d) {
+                selectedCountry = d.country;
+                d3.select("#selected-country-text").text(`Selected Country: ${selectedCountry}`);
+            });
 
         // Append SVG for scatter plot
         const scatterSvg = d3.select("#scatter-plot-container")
@@ -143,6 +148,7 @@ function renderChart(countryArray, scatterData) {
         const yScatter = d3.scaleLinear()
             .domain([0, d3.max(scatterData, d => d.y)])
             .range([scatterHeight, 0]);
+
         // x axis
         scatterSvg.append("g")
             .attr("transform", `translate(0,${scatterHeight})`)
@@ -189,14 +195,15 @@ function renderChart(countryArray, scatterData) {
                     .duration(200)
                     .style("opacity", .9);
 
-                    // Get the width of the tooltip
-                    const tooltipWidth = tooltip.node().offsetWidth;
-                    
-                    // Calculate the position, making sure the tooltip doesn't go off the right edge
-                    let left = event.pageX + 5;
-                    if (left + tooltipWidth > window.innerWidth) {
-                        left = event.pageX - tooltipWidth - 5;
-                    }
+                // Get the width of the tooltip
+                const tooltipWidth = tooltip.node().offsetWidth;
+                
+                // Calculate the position, making sure the tooltip doesn't go off the right edge
+                let left = event.pageX + 5;
+                if (left + tooltipWidth > window.innerWidth) {
+                    left = event.pageX - tooltipWidth - 5;
+                }
+
                 //fill tooltip
                 tooltip.html(`Country: ${d.country}<br/>X: ${d.x}<br/>Y: ${d.y}`)
                     .style("left", left + "px")
@@ -206,6 +213,10 @@ function renderChart(countryArray, scatterData) {
                 tooltip.transition()
                     .duration(500)
                     .style("opacity", 0);
+            })
+            .on("click", function(event, d) {
+                selectedCountry = d.country;
+                d3.select("#selected-country-text").text(`Selected Country: ${selectedCountry}`);
             });
     }
 
@@ -288,6 +299,10 @@ d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
         maxYear = 2014;//+d3.select("#year-slider-max").property("value");
         d3.select("#year-range").text(`${minYear} - ${maxYear}`);
         updateChart(data, minYear, maxYear);
+    })
+    .on("click", function(event, d) {
+        // check for selection click
+        selectedCountry = d.country; 
     });
 
     // d3.select("#year-slider-max").on("input", function() {

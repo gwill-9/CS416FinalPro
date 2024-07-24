@@ -41,3 +41,15 @@ body {
     color: white;
     font-size: 1.2em;
 }
+
+
+
+#selected-country-container {
+    text-align: center;
+    margin: 10px 0;
+}
+
+#selected-country-text {
+    font-size: 16px;
+    font-weight: bold;
+}
