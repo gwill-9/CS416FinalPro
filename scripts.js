@@ -249,7 +249,7 @@ function renderChart(countryArray, scatterData, filteredData) {
             });
 
             if(Scope === 0){
-                let anotationHeight = 40;
+                let anotationHeight = 30;
                 // Append notation box group
                 const notationGroup = scatterSvg.append("g")
                 .attr("transform", `translate(${width - 160},${anotationHeight})`); 
@@ -267,7 +267,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                 notationGroup.append("text")
                     .attr("x", 10)
                     .attr("y", 20)
-                    .text("North America uses the")
+                    .text("North America consumes the") //text
                     .attr("font-size", "12px")
                     .attr("fill", "black");
 
@@ -275,14 +275,14 @@ function renderChart(countryArray, scatterData, filteredData) {
                 notationGroup.append("text")
                     .attr("x", 10)
                     .attr("y", 35)
-                    .text("most but it dose not produce")
+                    .text("most yet produces") //text
                     .attr("font-size", "12px")
                     .attr("fill", "black");
 
                 notationGroup.append("text")
                     .attr("x", 10)
                     .attr("y", 50)
-                    .text("that much more CO2.")
+                    .text("proportionately low CO2") // text
                     .attr("font-size", "12px")
                     .attr("fill", "black");
             }
