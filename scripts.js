@@ -6,7 +6,7 @@ let selectedCountry1 = null;
 let selectedCountry2 = null;
 let selectedCountries = [];
 
-console.log('version 1.19');
+console.log('version 1.20');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -136,6 +136,17 @@ function renderChart(countryArray, scatterData, filteredData) {
                 d3.select("#selected-country-text").text(`Selected Country: ${selectedCountry}`);
             });
 
+
+
+
+
+
+
+
+
+
+
+
         // Append SVG for scatter plot
         const scatterSvg = d3.select("#scatter-plot-container")
             .append("svg")
@@ -223,6 +234,14 @@ function renderChart(countryArray, scatterData, filteredData) {
                 selectedCountry = d.country;
                 d3.select("#selected-country-text").text(`Selected Country: ${selectedCountry}`);
             });
+
+
+
+
+
+
+
+
 
 
         // Append SVG for electrical breakdown chart
@@ -351,7 +370,7 @@ function renderChart(countryArray, scatterData, filteredData) {
 document.getElementById('save-country-1').addEventListener('click', function() {
     selectedCountry1 = selectedCountry;
     console.log(selectedCountry1);
-    if (selectedCouyntr1!=null) {
+    if (selectedCountry1!=null) {
         renderChart(countryArray, scatterData, filteredData); // Ensure to pass the required data
     }
 });
