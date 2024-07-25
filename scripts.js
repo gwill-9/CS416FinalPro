@@ -747,8 +747,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                 .attr("transform", `translate(0,${breakdownHeight})`)
                 .call(d3.axisBottom(xBreakdown))
                 .selectAll("text")
-                .attr("transform", "translate(-10,0)rotate(-45)")
-                .style("text-anchor", "end");
+                .style("text-anchor", "middle");
 
              // Y axis for breakdown
              const yBreakdown = d3.scaleLinear()
