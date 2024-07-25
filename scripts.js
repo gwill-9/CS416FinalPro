@@ -14,7 +14,7 @@ let maxYearGlobal = 2014;
 let Listener = false;
 
 
-console.log('version 1.45');
+console.log('version 1.46');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -39,6 +39,7 @@ function updateChart(data, minYear, maxYear) {
 
     // Extract distinct regions
     const distinctRegions = Array.from(new Set(data.map(d => d.Region)));
+    console.log(distinctRegions)
 
     // Filter the data based on the selected scope
     if (Scope === 0) {
@@ -337,8 +338,47 @@ function renderChart(countryArray, scatterData, filteredData) {
                     .attr("font-size", "12px")
                     .attr("fill", "black");
             }
+            if(Scope === 4){ //all East Asia & Pacific
+                let anotationHeight = 250;
+                let horizontalPos = 160;
+                // Append notation box group
+                const notationGroup = scatterSvg.append("g")
+                .attr("transform", `translate(${width - horizontalPos},${anotationHeight})`); 
+                
+                // Append rectangle for the notation box
+                notationGroup.append("rect")
+                    .attr("width", 160)
+                    .attr("height", 60)
+                    .attr("fill", "white")
+                    .attr("stroke", "black")
+                    .attr("rx", 5)  // Rounded corners
+                    .attr("ry", 5);
 
+                // Append text for the notation box
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 20)
+                    .text("Iceland emits low CO2 due") //text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
 
+                // Add more text lines if needed
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 35)
+                    .text("to their hydro use despite") //text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 50)
+                    .text("their large consumption") // text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+            }
+
+// 4 has a high dependace on natural gas leadiing or more poluton
 
 
 
