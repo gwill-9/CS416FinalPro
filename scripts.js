@@ -14,7 +14,7 @@ let maxYearGlobal = 2014;
 let Listener = false;
 
 
-console.log('version 1.44');
+console.log('version 1.45');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -26,7 +26,7 @@ function updateChart(data, minYear, maxYear) {
 
     // Define a mapping of scope values to region names
     const regionMapping = {
-        0: null, // All countries
+        0: null, // All Regions
         1: 'Region', // All countries with non-null Region
         2: 'North America',
         3: 'Europe & Central Asia',
@@ -55,56 +55,6 @@ function updateChart(data, minYear, maxYear) {
             }
         });
     }
-
-
-
-    // if (Scope === 0) {
-    //     // Extract distinct regions
-    //     const distinctRegions = Array.from(new Set(data.map(d => d.Region)));
-    //     // console.log("Distinct Regions:", distinctRegions);
-
-    //     // Filter out rows where Region column is not null (look at the regions only)
-    //     filteredScopeData = filteredData.filter(d => !d.Region);
-    //     // console.log("Filtered Data (Scope 0):", filteredScopeData);
-
-    //     // Filter data based on the list of regions
-    //     filteredScopeData = filteredScopeData.filter(d => distinctRegions.includes(d["Country Name"]));
-    //     // console.log("Filtered Data (Scope 0) after compare:", filteredScopeData);
-
-    // } else{
-    //     if(Scope === 1){
-    //     //all countrys
-    //     filteredScopeData = filteredData.filter(d => d.Region);
-    //     } else {
-    //         if(Scope === 2){
-    //             filteredScopeData = filteredData[filteredData["Region"]=== "North America"];
-    //         } else{
-    //             if(Scope === 3){
-    //                 filteredScopeData = filteredData[filteredData["Region"]=== "Europe & Central Asia"];
-    //             } else{
-    //                 if(Scope === 4){
-    //                     filteredScopeData = filteredData[filteredData["Region"]=== "East Asia & Pacific"];   
-    //                 } else{
-    //                     if(Scope === 5){
-    //                         filteredScopeData = filteredData[filteredData["Region"]=== "Middle East & North Africa"];
-    //                     } else{
-    //                         if(Scope === 6){
-    //                             filteredScopeData = filteredData[filteredData["Region"]=== "Latin America & Caribbean"];
-    //                         } else {
-    //                             if(Scope === 7){
-    //                                 filteredScopeData = filteredData[filteredData["Region"]=== "South Asia"];
-    //                             } else {
-    //                                 if(Scope === 8){
-    //                                     filteredScopeData = filteredData[filteredData["Region"]=== "Sub-Saharan Africa"];
-    //                                 } else { filteredScopeData = filteredData.filter(d => d.Region); }
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //             }   
-    //         }
-    //     }
-    // }
 
     // Group by country and calculate the average for each country
     const countryData = d3.rollups(filteredScopeData,
@@ -148,7 +98,6 @@ function renderChart(countryArray, scatterData, filteredData) {
     // back up gobal for lissiners
     countryArrayGlobal = countryArray;
     scatterDataGlobal = scatterData;
-
     // Sort the bar chart data in descending order based on value
     countryArray.sort((a, b) => b.value - a.value);
 
@@ -589,12 +538,12 @@ function renderChart(countryArray, scatterData, filteredData) {
 
     // Initial chart rendering
     updateChartDimensions();
-
-    // Add an event listener to resize the charts when the window is resized and check so only one
-    window.removeEventListener('resize', updateChartDimensions);  
-    window.addEventListener('resize', updateChartDimensions);
 }
 //render chart end
+
+
+// Add an event listener to resize the charts when the window is resized
+window.addEventListener('resize', renderChart(countryArrayGlobal, scatterDataGlobal, filteredDataGlobal));
 
 
 // botten logic
