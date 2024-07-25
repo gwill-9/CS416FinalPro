@@ -208,8 +208,8 @@ function renderChart(countryArray, scatterData, filteredData) {
             .call(d3.axisLeft(yScatter))
             .append("text")
             .attr("fill", "#000")
-            .attr("x", 0)
-            .attr("y", 100)
+            .attr("x", scatterHeight/2)
+            .attr("y", -20)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
             .text("C02 From Electric Power Generation And Heating (kt Per capita)");
