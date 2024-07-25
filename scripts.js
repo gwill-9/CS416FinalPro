@@ -14,7 +14,7 @@ let maxYearGlobal = 2014;
 let Listener = false;
 
 
-console.log('version 1.46');
+console.log('version 1.47');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -39,7 +39,7 @@ function updateChart(data, minYear, maxYear) {
 
     // Extract distinct regions
     const distinctRegions = Array.from(new Set(data.map(d => d.Region)));
-    console.log(distinctRegions)
+    //console.log(distinctRegions)
 
     // Filter the data based on the selected scope
     if (Scope === 0) {
@@ -338,12 +338,49 @@ function renderChart(countryArray, scatterData, filteredData) {
                     .attr("font-size", "12px")
                     .attr("fill", "black");
             }
-            if(Scope === 4){ //all East Asia & Pacific
-                let anotationHeight = 250;
-                let horizontalPos = 160;
+            if(Scope === 2){ //North America
+                let anotationHeight = 200;
                 // Append notation box group
                 const notationGroup = scatterSvg.append("g")
-                .attr("transform", `translate(${width - horizontalPos},${anotationHeight})`); 
+                .attr("transform", `translate(${width - 160},${anotationHeight})`); 
+                
+                // Append rectangle for the notation box
+                notationGroup.append("rect")
+                    .attr("width", 160)
+                    .attr("height", 60)
+                    .attr("fill", "white")
+                    .attr("stroke", "black")
+                    .attr("rx", 5)  // Rounded corners
+                    .attr("ry", 5);
+
+                // Append text for the notation box
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 20)
+                    .text("Notably hydropower accounts") //text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                // Add more text lines if needed
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 35)
+                    .text("for over half of") //text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 50)
+                    .text("Canada's electricity") // text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+            }
+            if(Scope === 3){ //Europe & Central Asia
+                let anotationHeight = 250;
+                // Append notation box group
+                const notationGroup = scatterSvg.append("g")
+                .attr("transform", `translate(${width - 160},${anotationHeight})`); 
                 
                 // Append rectangle for the notation box
                 notationGroup.append("rect")
@@ -377,8 +414,201 @@ function renderChart(countryArray, scatterData, filteredData) {
                     .attr("font-size", "12px")
                     .attr("fill", "black");
             }
+            if(Scope === 4){ //Europe & Central Asia
+                let anotationHeight = 100;
+                let horizontalPos = width/2 - width/16;
+                // Append notation box group
+                const notationGroup = scatterSvg.append("g")
+                .attr("transform", `translate(${width - horizontalPos},${anotationHeight})`); 
+                
+                // Append rectangle for the notation box
+                notationGroup.append("rect")
+                    .attr("width", 160)
+                    .attr("height", 60)
+                    .attr("fill", "white")
+                    .attr("stroke", "black")
+                    .attr("rx", 5)  // Rounded corners
+                    .attr("ry", 5);
 
-// 4 has a high dependace on natural gas leadiing or more poluton
+                // Append text for the notation box
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 20)
+                    .text("China ustilizes") //text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                // Add more text lines if needed
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 35)
+                    .text("predominantly coal") //text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 50)
+                    .text("about 73%") // text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+            }
+            if(Scope === 5){ //Middle East & North Africa
+                let anotationHeight = 100;
+                let horizontalPos = width/2;
+                // Append notation box group
+                const notationGroup = scatterSvg.append("g")
+                .attr("transform", `translate(${width - horizontalPos},${anotationHeight})`); 
+                
+                // Append rectangle for the notation box
+                notationGroup.append("rect")
+                    .attr("width", 160)
+                    .attr("height", 60)
+                    .attr("fill", "white")
+                    .attr("stroke", "black")
+                    .attr("rx", 5)  // Rounded corners
+                    .attr("ry", 5);
+
+                // Append text for the notation box
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 20)
+                    .text("This region has high") //text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                // Add more text lines if needed
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 35)
+                    .text("CO2 for power used") //text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 50)
+                    .text("due to gas and oil use") // text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+            }
+            if(Scope === 6){ //Latin America & Caribbean
+                let anotationHeight = 150;
+                let horizontalPos = width/2;
+                // Append notation box group
+                const notationGroup = scatterSvg.append("g")
+                .attr("transform", `translate(${width - horizontalPos},${anotationHeight})`); 
+                
+                // Append rectangle for the notation box
+                notationGroup.append("rect")
+                    .attr("width", 160)
+                    .attr("height", 60)
+                    .attr("fill", "white")
+                    .attr("stroke", "black")
+                    .attr("rx", 5)  // Rounded corners
+                    .attr("ry", 5);
+
+                // Append text for the notation box
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 20)
+                    .text("This region has high") //text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                // Add more text lines if needed
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 35)
+                    .text("hydroelectric use") //text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 50)
+                    .text("notably Paraguay") // text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+            }
+            if(Scope === 7){ //South Asia
+                let anotationHeight = 100;
+                let horizontalPos = width-160;
+                // Append notation box group
+                const notationGroup = scatterSvg.append("g")
+                .attr("transform", `translate(${width - horizontalPos},${anotationHeight})`); 
+                
+                // Append rectangle for the notation box
+                notationGroup.append("rect")
+                    .attr("width", 160)
+                    .attr("height", 60)
+                    .attr("fill", "white")
+                    .attr("stroke", "black")
+                    .attr("rx", 5)  // Rounded corners
+                    .attr("ry", 5);
+
+                // Append text for the notation box
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 20)
+                    .text("This enitre region") //text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                // Add more text lines if needed
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 35)
+                    .text("uses very little") //text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 50)
+                    .text("power (<1000)") // text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+            }
+            if(Scope === 8){ //Sub-Saharan Africa
+                let anotationHeight = 100;
+                let horizontalPos = width/8;
+                // Append notation box group
+                const notationGroup = scatterSvg.append("g")
+                .attr("transform", `translate(${width - horizontalPos},${anotationHeight})`); 
+                
+                // Append rectangle for the notation box
+                notationGroup.append("rect")
+                    .attr("width", 160)
+                    .attr("height", 60)
+                    .attr("fill", "white")
+                    .attr("stroke", "black")
+                    .attr("rx", 5)  // Rounded corners
+                    .attr("ry", 5);
+
+                // Append text for the notation box
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 20)
+                    .text("This region") //text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                // Add more text lines if needed
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 35)
+                    .text("produces very") //text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+
+                notationGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", 50)
+                    .text("little CO2") // text
+                    .attr("font-size", "12px")
+                    .attr("fill", "black");
+            }
 
 
 
