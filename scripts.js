@@ -619,32 +619,32 @@ document.getElementById('north-america').addEventListener('click', function() {
 });
 
 document.getElementById('europe-central-asia').addEventListener('click', function() {
-    Scope = 4;
+    Scope = 3;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('east-asia-pacific').addEventListener('click', function() {
-    Scope = 5;
+    Scope = 4;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('middle-east-north-africa').addEventListener('click', function() {
-    Scope = 6;
+    Scope = 5;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('latin-america-caribbean').addEventListener('click', function() {
-    Scope = 7;
+    Scope = 6;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('south-asia').addEventListener('click', function() {
-    Scope = 8;
+    Scope = 7;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
 document.getElementById('sub-saharan-africa').addEventListener('click', function() {
-    Scope = 9;
+    Scope = 8;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
 });
 
