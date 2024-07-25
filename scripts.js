@@ -372,7 +372,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                 notationGroup.append("text")
                     .attr("x", 10)
                     .attr("y", 50)
-                    .text("o fCanada's electricity") // text
+                    .text("of Canada's electricity") // text
                     .attr("font-size", "12px")
                     .attr("fill", "black");
             }
@@ -415,8 +415,8 @@ function renderChart(countryArray, scatterData, filteredData) {
                     .attr("fill", "black");
             }
             if(Scope === 4){ //East Asia & Pacific
-                let anotationHeight = 125;
-                let horizontalPos = (width/2) - (width/16);
+                let anotationHeight = 150;
+                let horizontalPos = (width/2) - (width/8);
                 // Append notation box group
                 const notationGroup = scatterSvg.append("g")
                 .attr("transform", `translate(${horizontalPos},${anotationHeight})`); 
@@ -571,8 +571,8 @@ function renderChart(countryArray, scatterData, filteredData) {
                     .attr("fill", "black");
             }
             if(Scope === 8){ //Sub-Saharan Africa
-                let anotationHeight = 100;
-                let horizontalPos = width/8;
+                let anotationHeight = 150;
+                let horizontalPos = width/16;
                 // Append notation box group
                 const notationGroup = scatterSvg.append("g")
                 .attr("transform", `translate(${horizontalPos},${anotationHeight})`); 
@@ -935,7 +935,7 @@ d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
     let maxYear = 2014;
 
     // Update year range display
-    d3.select("#year-range").text(`${minYear} - ${maxYear}`);
+    d3.select("#year-range").text(`${minYear}`);
 
     // Save data
     inputData = data;
