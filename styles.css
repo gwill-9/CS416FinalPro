@@ -84,3 +84,9 @@ body {
     padding-left: 20px;
     font-size: 14px; 
 }
+
+
+#title-box {
+    margin: 10px 0;
+    text-align: center;
+}
