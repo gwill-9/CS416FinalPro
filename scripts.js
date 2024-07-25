@@ -14,7 +14,7 @@ let maxYearGlobal = 2014;
 let Listener = false;
 
 
-console.log('version 1.47');
+console.log('version 1.48');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
