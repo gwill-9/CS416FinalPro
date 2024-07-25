@@ -543,7 +543,7 @@ function renderChart(countryArray, scatterData, filteredData) {
 
 
 // Add an event listener to resize the charts when the window is resized
-window.addEventListener('resize', renderChart(countryArrayGlobal, scatterDataGlobal, filteredDataGlobal));
+window.addEventListener('resize', ()=>renderChart(countryArrayGlobal, scatterDataGlobal, filteredDataGlobal));
 
 
 // botten logic
