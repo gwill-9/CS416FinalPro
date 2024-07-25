@@ -190,7 +190,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                 }
 
                 //fill tooltip
-                tooltipBar.html(`Country: ${d.country}<br/>Y: ${d.y}`)
+                tooltipBar.html(`Country: ${d.country}<br/>Value: ${d.value}`)
                     .style("left", left + "px")
                     .style("top", (event.pageY - 28) + "px");
             })
@@ -300,7 +300,7 @@ function renderChart(countryArray, scatterData, filteredData) {
             })
             .on("click", function(event, d) {
                 selectedCountry = d.country;
-                d3.select("#selected-country-text").text(`Selected Area: ${selectedCountry}`);
+                d3.select("#selected-country-text").text(`Click Bars or Points to Select an area.  Currently Selected Area: ${selectedCountry}`);
             });
 
             if(Scope === 0){
