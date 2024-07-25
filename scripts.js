@@ -14,7 +14,7 @@ let maxYearGlobal = 2014;
 let Listener = false;
 
 
-console.log('version 1.43');
+console.log('version 1.44');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -24,53 +24,87 @@ function updateChart(data, minYear, maxYear) {
 
     let filteredScopeData;
 
+    // Define a mapping of scope values to region names
+    const regionMapping = {
+        0: null, // All countries
+        1: 'Region', // All countries with non-null Region
+        2: 'North America',
+        3: 'Europe & Central Asia',
+        4: 'East Asia & Pacific',
+        5: 'Middle East & North Africa',
+        6: 'Latin America & Caribbean',
+        7: 'South Asia',
+        8: 'Sub-Saharan Africa'
+    };
+
+    // Extract distinct regions
+    const distinctRegions = Array.from(new Set(data.map(d => d.Region)));
+
+    // Filter the data based on the selected scope
     if (Scope === 0) {
-        // Extract distinct regions
-        const distinctRegions = Array.from(new Set(data.map(d => d.Region)));
-        // console.log("Distinct Regions:", distinctRegions);
-
-        // Filter out rows where Region column is not null (look at the regions only)
-        filteredScopeData = filteredData.filter(d => !d.Region);
-        // console.log("Filtered Data (Scope 0):", filteredScopeData);
-
-        // Filter data based on the list of regions
-        filteredScopeData = filteredScopeData.filter(d => distinctRegions.includes(d["Country Name"]));
-        // console.log("Filtered Data (Scope 0) after compare:", filteredScopeData);
-
-    } else{
-        if(Scope === 1){
-        //all countrys
-        filteredScopeData = filteredData.filter(d => d.Region);
-        } else {
-            if(Scope === 2){
-                filteredScopeData = filteredData[filteredData["Region"]=== "North America"];
-            } else{
-                if(Scope === 3){
-                    filteredScopeData = filteredData[filteredData["Region"]=== "Europe & Central Asia"];
-                } else{
-                    if(Scope === 4){
-                        filteredScopeData = filteredData[filteredData["Region"]=== "East Asia & Pacific"];   
-                    } else{
-                        if(Scope === 5){
-                            filteredScopeData = filteredData[filteredData["Region"]=== "Middle East & North Africa"];
-                        } else{
-                            if(Scope === 6){
-                                filteredScopeData = filteredData[filteredData["Region"]=== "Latin America & Caribbean"];
-                            } else {
-                                if(Scope === 7){
-                                    filteredScopeData = filteredData[filteredData["Region"]=== "South Asia"];
-                                } else {
-                                    if(Scope === 8){
-                                        filteredScopeData = filteredData[filteredData["Region"]=== "Sub-Saharan Africa"];
-                                    } else { filteredScopeData = filteredData.filter(d => d.Region); }
-                                }
-                            }
-                        }
-                    }
-                }   
+        // Filter out rows where Region column is null and only look at regions
+        filteredScopeData = filteredData.filter(d => distinctRegions.includes(d["Country Name"]));
+    } else {
+        filteredScopeData = filteredData.filter(d => {
+            if (Scope === 1) {
+                // Include all countries with non-null Region
+                return d.Region;
+            } else {
+                // Filter by specific region
+                return d.Region === regionMapping[Scope];
             }
-        }
+        });
     }
+
+
+
+    // if (Scope === 0) {
+    //     // Extract distinct regions
+    //     const distinctRegions = Array.from(new Set(data.map(d => d.Region)));
+    //     // console.log("Distinct Regions:", distinctRegions);
+
+    //     // Filter out rows where Region column is not null (look at the regions only)
+    //     filteredScopeData = filteredData.filter(d => !d.Region);
+    //     // console.log("Filtered Data (Scope 0):", filteredScopeData);
+
+    //     // Filter data based on the list of regions
+    //     filteredScopeData = filteredScopeData.filter(d => distinctRegions.includes(d["Country Name"]));
+    //     // console.log("Filtered Data (Scope 0) after compare:", filteredScopeData);
+
+    // } else{
+    //     if(Scope === 1){
+    //     //all countrys
+    //     filteredScopeData = filteredData.filter(d => d.Region);
+    //     } else {
+    //         if(Scope === 2){
+    //             filteredScopeData = filteredData[filteredData["Region"]=== "North America"];
+    //         } else{
+    //             if(Scope === 3){
+    //                 filteredScopeData = filteredData[filteredData["Region"]=== "Europe & Central Asia"];
+    //             } else{
+    //                 if(Scope === 4){
+    //                     filteredScopeData = filteredData[filteredData["Region"]=== "East Asia & Pacific"];   
+    //                 } else{
+    //                     if(Scope === 5){
+    //                         filteredScopeData = filteredData[filteredData["Region"]=== "Middle East & North Africa"];
+    //                     } else{
+    //                         if(Scope === 6){
+    //                             filteredScopeData = filteredData[filteredData["Region"]=== "Latin America & Caribbean"];
+    //                         } else {
+    //                             if(Scope === 7){
+    //                                 filteredScopeData = filteredData[filteredData["Region"]=== "South Asia"];
+    //                             } else {
+    //                                 if(Scope === 8){
+    //                                     filteredScopeData = filteredData[filteredData["Region"]=== "Sub-Saharan Africa"];
+    //                                 } else { filteredScopeData = filteredData.filter(d => d.Region); }
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }   
+    //         }
+    //     }
+    // }
 
     // Group by country and calculate the average for each country
     const countryData = d3.rollups(filteredScopeData,
