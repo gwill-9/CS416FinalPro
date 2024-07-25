@@ -14,7 +14,7 @@ let maxYearGlobal = 2014;
 let Listener = false;
 
 
-console.log('version 1.49');
+console.log('version 1.50');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -208,7 +208,7 @@ function renderChart(countryArray, scatterData, filteredData) {
             .call(d3.axisLeft(yScatter))
             .append("text")
             .attr("fill", "#000")
-            .attr("x", -margin.left)
+            .attr("x", 0)
             .attr("y", scatterHeight / 2)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
@@ -416,7 +416,7 @@ function renderChart(countryArray, scatterData, filteredData) {
             }
             if(Scope === 4){ //East Asia & Pacific
                 let anotationHeight = 150;
-                let horizontalPos = (width/2) - (width/8);
+                let horizontalPos = (width/2) - (width/4);
                 // Append notation box group
                 const notationGroup = scatterSvg.append("g")
                 .attr("transform", `translate(${horizontalPos},${anotationHeight})`); 
