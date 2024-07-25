@@ -146,7 +146,24 @@ function renderChart(countryArray, scatterData, filteredData) {
             .nice()
             .range([barChartHeight, 0]);
         barSvg.append("g")
-            .call(d3.axisLeft(yBar));
+            .call(d3.axisLeft(yBar))
+            .append("text")
+            .attr("fill", "#000")
+            .attr("x", -150)
+            .attr("y", -30)
+            .attr("text-anchor", "middle")
+            .attr("transform", "rotate(-90)")
+            .text("C02 From Electric Power Generation And Heating (kt Per capita)");
+
+        // Create a tooltip div that is hidden by default
+        const tooltipBar = d3.select("#bar-chart-container")
+        .append("div")
+        .style("position", "absolute")
+        .style("background", "white")
+        .style("border", "1px solid #ccc")
+        .style("padding", "5px")
+        .style("pointer-events", "none")
+        .style("opacity", 0);   
 
         // Bar chart bars
         barSvg.selectAll("rect")
@@ -158,9 +175,33 @@ function renderChart(countryArray, scatterData, filteredData) {
             .attr("width", xBar.bandwidth())
             .attr("height", d => barChartHeight - yBar(d.value))
             .attr("fill", "steelblue")
+            .on("mouseover", function(event, d) {
+                tooltipBar.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+
+                // Get the width of the tooltip
+                const tooltipWidthBar = tooltipBar.node().offsetWidth;
+                
+                // Calculate the position, making sure the tooltip doesn't go off the right edge
+                let left = event.pageX + 5;
+                if (left + tooltipWidthBar > window.innerWidth) {
+                    left = event.pageX - tooltipWidthBar - 5;
+                }
+
+                //fill tooltip
+                tooltipBar.html(`Country: ${d.country}<br/>Y: ${d.y}`)
+                    .style("left", left + "px")
+                    .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", function(d) {
+                tooltipBar.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            })
             .on("click", function(event, d) {
                 selectedCountry = d.country;
-                d3.select("#selected-country-text").text(`Selected Area: ${selectedCountry}`);
+                d3.select("#selected-country-text").text(`Click Bars or Points to Select an area.  Currently Selected Area: ${selectedCountry}`);
             });
 
 
