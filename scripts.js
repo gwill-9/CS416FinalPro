@@ -14,7 +14,7 @@ let maxYearGlobal = 2014;
 let Listener = false;
 
 
-console.log('version 1.54');
+console.log('version 1.55');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -208,7 +208,7 @@ function renderChart(countryArray, scatterData, filteredData) {
             .call(d3.axisLeft(yScatter))
             .append("text")
             .attr("fill", "#000")
-            .attr("x",  50)
+            .attr("x",  -75)
             .attr("y", -30)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
