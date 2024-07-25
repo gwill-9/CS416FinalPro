@@ -14,7 +14,7 @@ let maxYearGlobal = 2014;
 let Listener = false;
 
 
-console.log('version 1.51');
+console.log('version 1.52');
     
 // Function to update the chart based on selected year range
 function updateChart(data, minYear, maxYear) {
@@ -209,7 +209,7 @@ function renderChart(countryArray, scatterData, filteredData) {
             .append("text")
             .attr("fill", "#000")
             .attr("x", 0)
-            .attr("y", 0)
+            .attr("y", 100)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
             .text("C02 From Electric Power Generation And Heating (kt Per capita)");
