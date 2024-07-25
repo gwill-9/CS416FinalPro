@@ -836,46 +836,55 @@ document.getElementById('save-country-2').addEventListener('click', function() {
 document.getElementById('regions').addEventListener('click', function() {
     Scope = 0;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
+    updateCurrentView();
 });
 
 document.getElementById('all-regions').addEventListener('click', function() {
     Scope = 1;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
+    updateCurrentView();
 });
 
 document.getElementById('north-america').addEventListener('click', function() {
     Scope = 2;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
+    updateCurrentView();
 });
 
 document.getElementById('europe-central-asia').addEventListener('click', function() {
     Scope = 3;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
+    updateCurrentView();
 });
 
 document.getElementById('east-asia-pacific').addEventListener('click', function() {
     Scope = 4;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
+    updateCurrentView();
 });
 
 document.getElementById('middle-east-north-africa').addEventListener('click', function() {
     Scope = 5;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
+    updateCurrentView();
 });
 
 document.getElementById('latin-america-caribbean').addEventListener('click', function() {
     Scope = 6;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
+    updateCurrentView();
 });
 
 document.getElementById('south-asia').addEventListener('click', function() {
     Scope = 7;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
+    updateCurrentView();
 });
 
 document.getElementById('sub-saharan-africa').addEventListener('click', function() {
     Scope = 8;
     updateChart(inputData, minYearGlobal, maxYearGlobal);
+    updateCurrentView();
 });
 
 
@@ -883,7 +892,41 @@ document.getElementById('sub-saharan-africa').addEventListener('click', function
 
 
 
-
+function updateCurrentView() {
+    let viewText;
+    switch(Scope) {
+        case 0:
+            viewText = "Regions";
+            break;
+        case 1:
+            viewText = "All Countries";
+            break;
+        case 2:
+            viewText = "North America";
+            break;
+        case 3:
+            viewText = "Europe & Central Asia";
+            break;
+        case 4:
+            viewText = "East Asia & Pacific";
+            break;
+        case 5:
+            viewText = "Middle East & North Africa";
+            break;
+        case 6:
+            viewText = "Latin America & Caribbean";
+            break;
+        case 7:
+            viewText = "South Asia";
+            break;
+        case 8:
+            viewText = "Sub-Saharan Africa";
+            break;
+        default:
+            viewText = "Unknown";
+    }
+    d3.select("#current-view").text(`Current View: ${viewText}`);
+}
 
 
 
