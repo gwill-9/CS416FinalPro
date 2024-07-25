@@ -339,7 +339,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                     .attr("fill", "black");
             }
             if(Scope === 2){ //North America
-                let anotationHeight = 200;
+                let anotationHeight = 150;
                 // Append notation box group
                 const notationGroup = scatterSvg.append("g")
                 .attr("transform", `translate(${width - 160},${anotationHeight})`); 
@@ -357,7 +357,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                 notationGroup.append("text")
                     .attr("x", 10)
                     .attr("y", 20)
-                    .text("Notably hydropower accounts") //text
+                    .text("Notably hydropower") //text
                     .attr("font-size", "12px")
                     .attr("fill", "black");
 
@@ -365,14 +365,14 @@ function renderChart(countryArray, scatterData, filteredData) {
                 notationGroup.append("text")
                     .attr("x", 10)
                     .attr("y", 35)
-                    .text("for over half of") //text
+                    .text("accounts for over half") //text
                     .attr("font-size", "12px")
                     .attr("fill", "black");
 
                 notationGroup.append("text")
                     .attr("x", 10)
                     .attr("y", 50)
-                    .text("Canada's electricity") // text
+                    .text("o fCanada's electricity") // text
                     .attr("font-size", "12px")
                     .attr("fill", "black");
             }
@@ -414,12 +414,12 @@ function renderChart(countryArray, scatterData, filteredData) {
                     .attr("font-size", "12px")
                     .attr("fill", "black");
             }
-            if(Scope === 4){ //Europe & Central Asia
-                let anotationHeight = 100;
-                let horizontalPos = width/2 - width/16;
+            if(Scope === 4){ //East Asia & Pacific
+                let anotationHeight = 125;
+                let horizontalPos = (width/2) - (width/16);
                 // Append notation box group
                 const notationGroup = scatterSvg.append("g")
-                .attr("transform", `translate(${width - horizontalPos},${anotationHeight})`); 
+                .attr("transform", `translate(${horizontalPos},${anotationHeight})`); 
                 
                 // Append rectangle for the notation box
                 notationGroup.append("rect")
@@ -533,7 +533,7 @@ function renderChart(countryArray, scatterData, filteredData) {
             }
             if(Scope === 7){ //South Asia
                 let anotationHeight = 100;
-                let horizontalPos = width-160;
+                let horizontalPos = width/2;
                 // Append notation box group
                 const notationGroup = scatterSvg.append("g")
                 .attr("transform", `translate(${width - horizontalPos},${anotationHeight})`); 
@@ -575,7 +575,7 @@ function renderChart(countryArray, scatterData, filteredData) {
                 let horizontalPos = width/8;
                 // Append notation box group
                 const notationGroup = scatterSvg.append("g")
-                .attr("transform", `translate(${width - horizontalPos},${anotationHeight})`); 
+                .attr("transform", `translate(${horizontalPos},${anotationHeight})`); 
                 
                 // Append rectangle for the notation box
                 notationGroup.append("rect")
@@ -948,8 +948,8 @@ d3.csv("data/OutPutData_silm_slim.csv").then(function(data) {
     d3.select("#year-slider").on("input", function() {
         minYearGlobal = +this.value;
         // console.log(minYear);
-        maxYearGlobal = 2014;//+d3.select("#year-slider-max").property("value");
-        d3.select("#year-range").text(`${minYearGlobal} - ${maxYearGlobal}`);
+        maxYearGlobal = +this.value;
+        d3.select("#year-range").text(`${minYearGlobal}`);
         
         updateChart(data, minYearGlobal, maxYearGlobal);
     })
