@@ -149,11 +149,11 @@ function renderChart(countryArray, scatterData, filteredData) {
             .call(d3.axisLeft(yBar))
             .append("text")
             .attr("fill", "#000")
-            .attr("x", -150)
+            .attr("x", -125)
             .attr("y", -30)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
-            .text("C02 From Electric Power Generation And Heating (kt Per capita)");
+            .text("CO2 From Electric Power Generation And Heating (kt Per capita)");
 
         // Create a tooltip div that is hidden by default
         const tooltipBar = d3.select("#bar-chart-container")
@@ -253,7 +253,7 @@ function renderChart(countryArray, scatterData, filteredData) {
             .attr("y", -30)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
-            .text("C02 From Electric Power Generation And Heating (kt Per capita)");
+            .text("CO2 From Electric Power Generation And Heating (kt Per capita)");
 
         // Create a tooltip div that is hidden by default
         const tooltip = d3.select("#scatter-plot-container")
